@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# ---------- Routes ----------
 @app.get("/")
 def home():
     return render_template("index.html")
@@ -31,7 +30,6 @@ def lead():
         return jsonify({"ok": False, "error": str(e)}), 500
 
 
-# ---------- Email ----------
 def send_lead_email(data: dict):
     smtp_server = os.getenv("SMTP_SERVER", "smtp.office365.com")
     smtp_port = int(os.getenv("SMTP_PORT", "587"))
