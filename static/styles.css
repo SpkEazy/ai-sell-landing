@@ -2,14 +2,14 @@
   --bg: #04060b;
   --bg2: #070b16;
 
-  --surface: rgba(12, 16, 28, .55);
-  --surface2: rgba(12, 16, 28, .35);
-  --stroke: rgba(170, 190, 255, .12);
+  /* slightly brighter surfaces for better conversion */
+  --surface: rgba(12, 16, 28, .62);
+  --surface2: rgba(12, 16, 28, .40);
+  --stroke: rgba(170, 190, 255, .14);
 
   --text: rgba(245, 248, 255, .94);
   --muted: rgba(205, 214, 235, .64);
 
-  /* AuctionInc accents */
   --red: rgba(255, 46, 84, .95);
   --blue: rgba(66, 160, 255, .92);
 
@@ -32,22 +32,22 @@ body{
   font-family: Roboto, system-ui, -apple-system, Segoe UI, Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(1200px 700px at 12% -10%, rgba(66,160,255,.10), transparent 60%),
-    radial-gradient(900px 700px at 88% 0%, rgba(255,46,84,.08), transparent 60%),
+    radial-gradient(1200px 700px at 12% -10%, rgba(66,160,255,.12), transparent 60%),
+    radial-gradient(900px 700px at 88% 0%, rgba(255,46,84,.10), transparent 60%),
     linear-gradient(180deg, var(--bg), var(--bg2));
   overflow-x:hidden;
 }
 
-/* premium ambient moving light (subtle, red + blue separate) */
+/* premium ambient moving light */
 body::before{
   content:"";
   position: fixed;
   inset:-20%;
   pointer-events:none;
   background:
-    radial-gradient(640px 420px at 22% 30%, rgba(66,160,255,.10), transparent 60%),
-    radial-gradient(620px 400px at 82% 22%, rgba(255,46,84,.08), transparent 60%),
-    radial-gradient(560px 360px at 55% 78%, rgba(66,160,255,.06), transparent 60%);
+    radial-gradient(640px 420px at 22% 30%, rgba(66,160,255,.12), transparent 60%),
+    radial-gradient(620px 400px at 82% 22%, rgba(255,46,84,.10), transparent 60%),
+    radial-gradient(560px 360px at 55% 78%, rgba(66,160,255,.08), transparent 60%);
   filter: blur(14px);
   opacity:.9;
   animation: drift 18s var(--ease) infinite;
@@ -79,40 +79,24 @@ a{ color:inherit; text-decoration:none }
 .topbar{
   position:sticky; top:0; z-index:20;
   backdrop-filter: blur(14px);
-  background: linear-gradient(180deg, rgba(4,6,11,.82), rgba(4,6,11,.52));
-  border-bottom: 1px solid rgba(170,190,255,.10);
+  background: linear-gradient(180deg, rgba(4,6,11,.84), rgba(4,6,11,.56));
+  border-bottom: 1px solid rgba(170,190,255,.12);
 }
 .topbar__inner{
   display:flex; align-items:center; gap:18px;
   padding:14px 0;
 }
 
-.brand{ display:flex; align-items:center; gap:12px; min-width: 220px }
-.brand__badge{
-  width:38px; height:38px;
-  border-radius: 14px;
-  background: rgba(12,16,28,.40);
-  border:1px solid rgba(170,190,255,.14);
-  box-shadow: 0 10px 26px rgba(0,0,0,.30);
-  display:grid; place-items:center;
-  overflow:hidden;
-}
-.brand__badge img{
-  width:100%; height:100%;
-  object-fit: cover;
-}
-.brand__badge--sm{ width:30px; height:30px; border-radius: 12px; }
-
-.brand__stack{ display:flex; flex-direction:column; gap:2px; }
-.brand__logo{
-  height: 18px;
+/* Brand: only horizontal logo */
+.brand{ display:flex; align-items:center; min-width:auto }
+.brand__logo-main{
+  height: 34px;
   width: auto;
   display:block;
   opacity: .98;
 }
-.brand__sub{
-  font-size:12px;
-  color:var(--muted);
+@media(max-width: 520px){
+  .brand__logo-main{ height: 28px; }
 }
 
 /* Nav */
@@ -163,6 +147,7 @@ a{ color:inherit; text-decoration:none }
   font-weight: 700;
   box-shadow: var(--shadow2);
   transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+  white-space: nowrap; /* prevent ugly wrapping */
 }
 .btn:hover{
   transform: translateY(-1px);
@@ -170,7 +155,7 @@ a{ color:inherit; text-decoration:none }
   border-color: rgba(170,190,255,.20);
 }
 
-/* Primary CTA (NO gradient blend: separate red glow + blue edge) */
+/* Primary CTA */
 .btn--primary{
   border-color: rgba(255,46,84,.22);
   box-shadow:
@@ -189,6 +174,11 @@ a{ color:inherit; text-decoration:none }
 .btn--full{ width:100% }
 .btn__arrow{ opacity:.9 }
 
+/* Hide topbar CTA on very small screens (sticky CTA already exists) */
+@media(max-width: 520px){
+  .topbar__cta{ display:none; }
+}
+
 /* Hero */
 .hero{ position:relative; padding: 56px 0 28px }
 .hero__grid{
@@ -204,6 +194,22 @@ a{ color:inherit; text-decoration:none }
     radial-gradient(820px 480px at 86% 20%, rgba(255,46,84,.05), transparent 58%);
   pointer-events:none;
 }
+
+/* Hero photo overlay */
+.hero__photo{
+  position:absolute;
+  right:0; top:0; bottom:0;
+  width: 46%;
+  background:
+    linear-gradient(to left, rgba(4,6,11,.96), rgba(4,6,11,.55), rgba(4,6,11,0)),
+    url("/static/assets/hero-auction.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: .38;
+  pointer-events:none;
+  filter: saturate(1.05) contrast(1.02);
+}
+
 .hero__copy{ position:relative; z-index:1 }
 
 .pill{
@@ -231,7 +237,7 @@ h1{
   font-weight: 900;
 }
 
-/* Accent text: BLUE text + RED underline glow (no blend) */
+/* Accent */
 .accent{
   color: rgba(66,160,255,.98);
   position: relative;
@@ -281,12 +287,37 @@ h1{
 }
 .micro__text{ font-size: 13px; color: var(--muted) }
 
+/* Video card */
+.video-card{
+  margin-top: 16px;
+  border-radius: var(--r2);
+  border:1px solid rgba(170,190,255,.12);
+  background: rgba(12,16,28,.22);
+  overflow:hidden;
+}
+.video-card__head{
+  padding: 14px 14px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.video-embed{
+  position:relative;
+  aspect-ratio: 16 / 9;
+  width:100%;
+  border-top: 1px solid rgba(170,190,255,.10);
+}
+.video-embed iframe{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+}
+
 /* Card + Form */
 .card{
   position:relative; z-index:1;
   border-radius: var(--r2);
   border:1px solid rgba(170,190,255,.14);
-  background: rgba(12,16,28,.38);
+  background: rgba(12,16,28,.42);
   box-shadow: var(--shadow);
   overflow:hidden;
 }
@@ -311,12 +342,12 @@ input, textarea{
   padding: 12px 12px;
   border-radius: 16px;
   border:1px solid rgba(170,190,255,.14);
-  background: rgba(4,6,11,.40);
+  background: rgba(4,6,11,.42);
   color: var(--text);
   outline:none;
   transition: border-color .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease);
 }
-input:hover, textarea:hover{ background: rgba(4,6,11,.50) }
+input:hover, textarea:hover{ background: rgba(4,6,11,.54) }
 input:focus, textarea:focus{
   border-color: rgba(66,160,255,.35);
   box-shadow: 0 0 0 4px rgba(66,160,255,.10);
@@ -359,7 +390,7 @@ input:focus, textarea:focus{
 /* Sections */
 .section{ padding: 56px 0 }
 .section--alt{
-  background: linear-gradient(180deg, rgba(12,16,28,.28), rgba(12,16,28,0));
+  background: linear-gradient(180deg, rgba(12,16,28,.30), rgba(12,16,28,0));
   border-top: 1px solid rgba(170,190,255,.08);
   border-bottom: 1px solid rgba(170,190,255,.08);
 }
@@ -443,7 +474,7 @@ input:focus, textarea:focus{
 .proof__track{
   display:grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(240px, 1fr);
+  grid-auto-columns: minmax(260px, 1fr);
   gap: 12px;
   overflow:auto;
   scroll-snap-type: x mandatory;
@@ -452,10 +483,24 @@ input:focus, textarea:focus{
 }
 .proof__card{
   scroll-snap-align: start;
-  padding: 16px;
+  padding: 14px;
   border-radius: var(--r2);
   border:1px solid rgba(170,190,255,.12);
   background: rgba(12,16,28,.18);
+}
+.proof__img{
+  border-radius: 18px;
+  overflow:hidden;
+  border: 1px solid rgba(170,190,255,.10);
+  background: rgba(4,6,11,.40);
+  aspect-ratio: 3 / 2;
+  margin-bottom: 12px;
+}
+.proof__img img{
+  width:100%; height:100%;
+  object-fit: cover;
+  display:block;
+  opacity: .92;
 }
 .proof__kicker{ color: var(--muted); font-size: 13px }
 .proof__price{
@@ -467,6 +512,7 @@ input:focus, textarea:focus{
   text-shadow: 0 0 18px rgba(255,46,84,.10);
 }
 .proof__meta{ color: var(--muted); font-size: 13px }
+.proof__meta strong{ color: var(--text); font-weight: 700; }
 .proof__controls{
   display:flex; gap:10px;
   justify-content:flex-end;
@@ -505,7 +551,7 @@ input:focus, textarea:focus{
 .brand__row{ display:flex; align-items:center; gap:10px }
 .muted{ color: var(--muted) }
 
-/* Icons (blue, with subtle red glow) */
+/* Icons */
 .icon{
   width: 18px; height: 18px;
   display:inline-block;
@@ -559,6 +605,7 @@ input:focus, textarea:focus{
 @media (max-width: 980px){
   .hero{ padding-top: 44px }
   .hero__grid{ grid-template-columns: 1fr; gap: 14px }
+  .hero__photo{ display:none; }
   .nav{ display:none }
   .nav__toggle{ display:inline-flex }
   .benefits{ grid-template-columns: repeat(2, 1fr) }
@@ -580,3 +627,4 @@ input:focus, textarea:focus{
     transition: none !important;
   }
 }
+
