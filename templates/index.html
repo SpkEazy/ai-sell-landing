@@ -17,15 +17,11 @@
   <!-- Top bar -->
   <header class="topbar">
     <div class="container topbar__inner">
+      <!-- Simplified brand: only horizontal logo -->
       <a class="brand" href="#top" aria-label="AuctionInc home">
-        <span class="brand__badge" aria-hidden="true">
-          <img src="{{ url_for('static', filename='assets/auctioninc-icon.png') }}" alt="" />
-        </span>
-
-        <span class="brand__stack">
-          <img class="brand__logo" src="{{ url_for('static', filename='assets/auctioninc-logo-white.png') }}" alt="AuctionInc" />
-          <span class="brand__sub">Auction House + AI</span>
-        </span>
+        <img class="brand__logo-main"
+             src="{{ url_for('static', filename='assets/auctioninc-logo-white.png') }}"
+             alt="AuctionInc" />
       </a>
 
       <nav class="nav" aria-label="Primary">
@@ -35,7 +31,7 @@
         <a href="#proof">Recently sold</a>
       </nav>
 
-      <a class="btn btn--ghost" href="#lead">Get a call-back</a>
+      <a class="btn btn--ghost topbar__cta" href="#lead">Get a call-back</a>
       <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
 
@@ -85,6 +81,24 @@
           <div class="micro">
             <span class="micro__badge">No spam</span>
             <span class="micro__text">We’ll contact you within 1 business day.</span>
+          </div>
+
+          <!-- Video proof (embed highlight reel) -->
+          <div class="video-card" aria-label="Auction highlight reel">
+            <div class="video-card__head">
+              <strong>Watch a live AuctionInc moment</strong>
+              <span class="muted">Short highlight reel</span>
+            </div>
+
+            <div class="video-embed">
+              <iframe
+                src="https://www.youtube.com/embed/uorCfGfGZVA?rel=0&modestbranding=1"
+                title="AuctionInc highlight reel"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+              </iframe>
+            </div>
           </div>
         </div>
 
@@ -152,6 +166,7 @@
       </div>
 
       <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__photo" aria-hidden="true"></div>
     </section>
 
     <!-- Steps -->
@@ -313,31 +328,67 @@
       <div class="container">
         <header class="section__head">
           <h2>Recently sold</h2>
-          <p>Our track record speaks for itself — your success is our success.</p>
+          <p>Real results. Real buyers. Replace these with your exact suburb, price and photos.</p>
         </header>
 
         <div class="proof">
           <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
+
+            <!-- 6 placeholders -->
             <div class="proof__card">
+              <div class="proof__img">
+                <img src="{{ url_for('static', filename='assets/sold-1.jpg') }}" alt="" loading="lazy">
+              </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 2 800 000</div>
-              <div class="proof__meta">Residential • Competitive bidding</div>
+              <div class="proof__meta"><strong>Suburb Name</strong> • Residential</div>
             </div>
+
             <div class="proof__card">
+              <div class="proof__img">
+                <img src="{{ url_for('static', filename='assets/sold-2.jpg') }}" alt="" loading="lazy">
+              </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 13 500 000</div>
-              <div class="proof__meta">Premium • High-intent buyers</div>
+              <div class="proof__meta"><strong>Suburb Name</strong> • Premium Home</div>
             </div>
+
             <div class="proof__card">
+              <div class="proof__img">
+                <img src="{{ url_for('static', filename='assets/sold-3.jpg') }}" alt="" loading="lazy">
+              </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 5 400 000</div>
-              <div class="proof__meta">Residential • Time-boxed campaign</div>
+              <div class="proof__meta"><strong>Suburb Name</strong> • Competitive bidding</div>
             </div>
+
             <div class="proof__card">
+              <div class="proof__img">
+                <img src="{{ url_for('static', filename='assets/sold-4.jpg') }}" alt="" loading="lazy">
+              </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 12 500 000</div>
-              <div class="proof__meta">Commercial • Strong demand</div>
+              <div class="proof__meta"><strong>Suburb Name</strong> • Commercial</div>
             </div>
+
+            <div class="proof__card">
+              <div class="proof__img">
+                <img src="{{ url_for('static', filename='assets/sold-5.jpg') }}" alt="" loading="lazy">
+              </div>
+              <div class="proof__kicker">Sold for</div>
+              <div class="proof__price">R 8 900 000</div>
+              <div class="proof__meta"><strong>Suburb Name</strong> • Luxury Apartment</div>
+            </div>
+
+            <div class="proof__card">
+              <div class="proof__img">
+                <img src="{{ url_for('static', filename='assets/sold-6.jpg') }}" alt="" loading="lazy">
+              </div>
+              <div class="proof__kicker">Sold for</div>
+              <div class="proof__price">R 3 750 000</div>
+              <div class="proof__meta"><strong>Suburb Name</strong> • Family Home</div>
+            </div>
+
           </div>
 
           <div class="proof__controls">
@@ -366,9 +417,6 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <div class="brand__row">
-          <span class="brand__badge brand__badge--sm" aria-hidden="true">
-            <img src="{{ url_for('static', filename='assets/auctioninc-icon.png') }}" alt="" />
-          </span>
           <strong>AuctionInc</strong>
         </div>
         <p class="muted">AuctionInc, reimagined with AI-led marketing.</p>
@@ -389,3 +437,5 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+
+
