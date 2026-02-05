@@ -1,3 +1,4 @@
+<!-- templates/index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
+  <!-- Your existing CSS file -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
 
@@ -17,7 +19,6 @@
   <!-- Top bar -->
   <header class="topbar">
     <div class="container topbar__inner">
-      <!-- Simplified brand: only horizontal logo -->
       <a class="brand" href="#top" aria-label="AuctionInc home">
         <img class="brand__logo-main"
              src="{{ url_for('static', filename='assets/auctioninc-logo-white.png') }}"
@@ -83,7 +84,7 @@
             <span class="micro__text">We’ll contact you within 1 business day.</span>
           </div>
 
-          <!-- Video proof (embed highlight reel) -->
+          <!-- Video proof -->
           <div class="video-card" aria-label="Auction highlight reel">
             <div class="video-card__head">
               <strong>Watch a live AuctionInc moment</strong>
@@ -110,10 +111,17 @@
           </div>
 
           <form id="leadForm" class="form" novalidate>
-            <!-- Honeypot (anti-spam). Humans won’t fill this. Bots/autofill sometimes do. -->
+            <!-- Honeypot (anti-spam). IMPORTANT: name/id is NOT "company" to avoid browser autofill -->
             <div class="hp" aria-hidden="true">
-              <label for="company">Company</label>
-              <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+              <label for="website">Website</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabindex="-1"
+                autocomplete="off"
+                inputmode="none"
+              />
             </div>
 
             <div class="field">
@@ -164,8 +172,6 @@
           </form>
         </aside>
       </div>
-
-
     </section>
 
     <!-- Steps -->
@@ -187,7 +193,6 @@
               <p>We assess your goals, timing and reserve strategy — then map the 3-week plan.</p>
             </div>
           </li>
-
           <li class="step">
             <span class="step__num">2</span>
             <div class="step__body">
@@ -195,7 +200,6 @@
               <p>Clear fees, clear timelines, clear deliverables — no surprises.</p>
             </div>
           </li>
-
           <li class="step">
             <span class="step__num">3</span>
             <div class="step__body">
@@ -203,7 +207,6 @@
               <p>Your campaign is time-boxed to create urgency and focus buyer attention.</p>
             </div>
           </li>
-
           <li class="step">
             <span class="step__num">4</span>
             <div class="step__body">
@@ -211,7 +214,6 @@
               <p>We deploy digital + database targeting to pull qualified buyer demand fast.</p>
             </div>
           </li>
-
           <li class="step">
             <span class="step__num">5</span>
             <div class="step__body">
@@ -327,13 +329,11 @@
       <div class="container">
         <header class="section__head">
           <h2>Recently sold</h2>
-          <p>Real results. Real buyers. Replace these with your exact suburb, price and photos.</p>
+          <p>Tip: these images must exist at <code>static/assets/sold-1.jpg</code> ... <code>sold-6.jpg</code>.</p>
         </header>
 
         <div class="proof">
           <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
-
-            <!-- 6 placeholders -->
             <div class="proof__card">
               <div class="proof__img">
                 <img src="{{ url_for('static', filename='assets/sold-1.jpg') }}" alt="" loading="lazy">
@@ -387,7 +387,6 @@
               <div class="proof__price">R 3 750 000</div>
               <div class="proof__meta"><strong>Suburb Name</strong> • Family Home</div>
             </div>
-
           </div>
 
           <div class="proof__controls">
@@ -436,5 +435,4 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
 
