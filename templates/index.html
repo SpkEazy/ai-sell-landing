@@ -110,7 +110,7 @@
           </div>
 
           <form id="leadForm" class="form" novalidate>
-            <!-- Honeypot (anti-spam). Humans won’t fill this. Bots often do. -->
+            <!-- Honeypot (anti-spam). Humans won’t fill this. Bots/autofill sometimes do. -->
             <div class="hp" aria-hidden="true">
               <label for="company">Company</label>
               <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
@@ -166,7 +166,7 @@
       </div>
 
       <div class="hero__bg" aria-hidden="true"></div>
-      <div class="hero__photo" aria-hidden="true"></div>
+      <!-- hero image removed -->
     </section>
 
     <!-- Steps -->
@@ -437,5 +437,4 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
 
