@@ -1,75 +1,125 @@
+# app.py
 import os
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from flask import Flask, render_template, request, jsonify
+from email.message import EmailMessage
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
+
+# Expected Render env vars:
+# SMTP_SERVER=smtp.office365.com
+# SMTP_PORT=587
+# SMTP_USER=jelena@auctioninc.co.za
+# SMTP_PASS=<Office365 App Password>
+# LEADS_TO_EMAIL=jelena@auctioninc.co.za
+
 
 @app.get("/")
 def home():
     return render_template("index.html")
 
-@app.post("/api/lead")
-def lead():
-    data = request.get_json(force=True) or {}
 
-    # Honeypot: bots/autofill sometimes fill hidden fields.
-    # We now return a 400 so you can debug easily (no "fake success").
-    if str(data.get("website", "")).strip():
-        return jsonify({"ok": False, "error": "Spam detected"}), 400
+def _env(name: str, default: str | None = None) -> str | None:
+    v = os.getenv(name, default)
+    if v is None:
+        return None
+    v = v.strip()
+    return v if v else None
 
-    required = ["name", "phone", "email", "address"]
-    for k in required:
-        if not str(data.get(k, "")).strip():
-            return jsonify({"ok": False, "error": f"Missing {k}"}), 400
+
+def send_lead_email(*, name: str, phone: str, email: str, address: str, message: str) -> None:
+    smtp_server = _env("SMTP_SERVER")
+    smtp_port = _env("SMTP_PORT")
+    smtp_user = _env("SMTP_USER")
+    smtp_pass = _env("SMTP_PASS")
+    to_email = _env("LEADS_TO_EMAIL")
+
+    missing = [k for k, v in {
+        "SMTP_SERVER": smtp_server,
+        "SMTP_PORT": smtp_port,
+        "SMTP_USER": smtp_user,
+        "SMTP_PASS": smtp_pass,
+        "LEADS_TO_EMAIL": to_email,
+    }.items() if not v]
+
+    if missing:
+        raise RuntimeError(f"Missing env vars: {', '.join(missing)}")
 
     try:
-        send_lead_email(data)
-        return jsonify({"ok": True})
-    except Exception as e:
-        return jsonify({"ok": False, "error": str(e)}), 500
+        port_int = int(smtp_port)  # type: ignore[arg-type]
+    except Exception:
+        raise RuntimeError("SMTP_PORT must be an integer (e.g. 587)")
 
-
-def send_lead_email(data: dict):
-    smtp_server = os.getenv("SMTP_SERVER", "smtp.office365.com")
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))
-    smtp_user = os.getenv("SMTP_USER")         # e.g. jelena@auctioninc.co.za
-    smtp_pass = os.getenv("SMTP_PASS")         # app password / smtp password
-    to_email   = os.getenv("LEADS_TO_EMAIL")   # where leads go
-
-    if not smtp_user or not smtp_pass or not to_email:
-        raise RuntimeError("Missing SMTP env vars (SMTP_USER/SMTP_PASS/LEADS_TO_EMAIL)")
-
-    subject = f"New AuctionInc Lead: {data.get('name')} ({data.get('phone')})"
-
-    body = f"""
-New Lead Received
-
-Name: {data.get('name')}
-Phone: {data.get('phone')}
-Email: {data.get('email')}
-Address: {data.get('address')}
-
-Message:
-{data.get('message', '')}
-
-Page URL: {data.get('page_url', '')}
-User Agent: {data.get('user_agent', '')}
-"""
-
-    msg = MIMEMultipart()
+    msg = EmailMessage()
+    msg["Subject"] = f"New AuctionInc Lead: {name}"
     msg["From"] = smtp_user
     msg["To"] = to_email
-    msg["Subject"] = subject
-    msg.attach(MIMEText(body, "plain"))
+    # Reply-to is helpful so you can reply directly to the lead
+    msg["Reply-To"] = email
 
-    server = smtplib.SMTP(smtp_server, smtp_port)
-    server.starttls()
-    server.login(smtp_user, smtp_pass)
-    server.sendmail(smtp_user, to_email, msg.as_string())
-    server.quit()
+    body = f"""New lead received from AuctionInc landing page
+
+Name: {name}
+Phone: {phone}
+Email: {email}
+Property Address: {address}
+
+Message:
+{message if message else "(none)"}
+"""
+    msg.set_content(body)
+
+    # Office365 SMTP: STARTTLS on 587
+    with smtplib.SMTP(smtp_server, port_int, timeout=20) as server:
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(smtp_user, smtp_pass)
+        server.send_message(msg)
+
+
+@app.post("/api/lead")
+def api_lead():
+    # Allow both JSON and form-encoded (JSON is preferred)
+    data = request.get_json(silent=True) or request.form.to_dict()
+
+    # Honeypot check (IMPORTANT: this must match index.html name/id="website")
+    # If you later add it to the JSON payload, this will still protect you.
+    if (data.get("website") or "").strip():
+        return jsonify({"error": "Spam detected"}), 400
+
+    name = (data.get("name") or "").strip()
+    phone = (data.get("phone") or "").strip()
+    email = (data.get("email") or "").strip()
+    address = (data.get("address") or "").strip()
+    message = (data.get("message") or "").strip()
+
+    # Basic validation
+    if not name:
+        return jsonify({"error": "Name is required"}), 400
+    if not phone or len(phone) < 7:
+        return jsonify({"error": "Valid phone is required"}), 400
+    if not email or "@" not in email:
+        return jsonify({"error": "Valid email is required"}), 400
+    if not address:
+        return jsonify({"error": "Address is required"}), 400
+
+    try:
+        send_lead_email(
+            name=name,
+            phone=phone,
+            email=email,
+            address=address,
+            message=message,
+        )
+    except Exception as e:
+        # Log to Render logs
+        app.logger.exception("Failed to send lead email")
+        return jsonify({"error": f"Email failed: {str(e)}"}), 500
+
+    return jsonify({"ok": True}), 200
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
+    # Local dev
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=True)
