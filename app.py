@@ -12,11 +12,12 @@ def home():
 
 @app.post("/api/lead")
 def lead():
-    data = request.get_json(force=True)
+    data = request.get_json(force=True) or {}
 
-    # Honeypot (bots fill this)
-    if data.get("company"):
-        return jsonify({"ok": True})  # pretend success
+    # Honeypot: bots/autofill sometimes fill hidden fields.
+    # We now return a 400 so you can debug easily (no "fake success").
+    if str(data.get("website", "")).strip():
+        return jsonify({"ok": False, "error": "Spam detected"}), 400
 
     required = ["name", "phone", "email", "address"]
     for k in required:
