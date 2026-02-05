@@ -195,20 +195,6 @@ a{ color:inherit; text-decoration:none }
   pointer-events:none;
 }
 
-/* Hero photo overlay */
-.hero__photo{
-  position:absolute;
-  right:0; top:0; bottom:0;
-  width: 46%;
-  background:
-    linear-gradient(to left, rgba(4,6,11,.96), rgba(4,6,11,.55), rgba(4,6,11,0)),
-    url("/static/assets/hero-auction.jpg");
-  background-size: cover;
-  background-position: center;
-  opacity: .38;
-  pointer-events:none;
-  filter: saturate(1.05) contrast(1.02);
-}
 
 .hero__copy{ position:relative; z-index:1 }
 
@@ -627,4 +613,5 @@ input:focus, textarea:focus{
     transition: none !important;
   }
 }
+
 
