@@ -1,6 +1,9 @@
 (() => {
   const $ = (sel, root = document) => root.querySelector(sel);
 
+  // Debug helper (safe to leave in; remove later if you want)
+  console.log("AuctionInc landing script loaded");
+
   // Footer year
   const yearEl = $("#year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -45,6 +48,11 @@
   const form = $("#leadForm");
   const success = $("#formSuccess");
   const failBox = $("#formFail");
+
+  if (!form) {
+    console.error("leadForm not found — check that <form id='leadForm'> exists in index.html");
+    return;
+  }
 
   const setError = (name, msg) => {
     const el = document.querySelector(`[data-error-for="${name}"]`);
@@ -92,20 +100,21 @@
   });
 
   const setLoading = (isLoading) => {
-    const btn = $("#submitBtn") || form?.querySelector('button[type="submit"]');
+    const btn = $("#submitBtn") || form.querySelector('button[type="submit"]');
     if (!btn) return;
     btn.disabled = isLoading;
     btn.style.opacity = isLoading ? "0.82" : "1";
     btn.style.cursor = isLoading ? "not-allowed" : "pointer";
   };
 
-  form?.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (success) success.hidden = true;
     if (failBox) failBox.hidden = true;
 
     const data = {
-      company: $("#company")?.value || "", // honeypot
+      // renamed honeypot key to avoid autofill issues
+      website: $("#company")?.value || "",
       name: $("#name")?.value || "",
       phone: $("#phone")?.value || "",
       email: $("#email")?.value || "",
@@ -140,5 +149,3 @@
     }
   });
 })();
-
-
