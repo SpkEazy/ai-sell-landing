@@ -1,151 +1,133 @@
+// static/script.js
 (() => {
-  const $ = (sel, root = document) => root.querySelector(sel);
-
-  // Debug helper (safe to leave in; remove later if you want)
   console.log("AuctionInc landing script loaded");
 
   // Footer year
-  const yearEl = $("#year");
+  const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   // Mobile nav toggle
-  const navToggle = $("#navToggle");
-  const navMobile = $("#navMobile");
-
+  const navToggle = document.getElementById("navToggle");
+  const navMobile = document.getElementById("navMobile");
   if (navToggle && navMobile) {
     navToggle.addEventListener("click", () => {
       const isOpen = navToggle.getAttribute("aria-expanded") === "true";
       navToggle.setAttribute("aria-expanded", String(!isOpen));
       navMobile.hidden = isOpen;
-      navToggle.textContent = isOpen ? "☰" : "✕";
     });
 
-    navMobile.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (!a) return;
-      navToggle.setAttribute("aria-expanded", "false");
-      navMobile.hidden = true;
-      navToggle.textContent = "☰";
+    // Close menu when clicking a link
+    navMobile.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        navToggle.setAttribute("aria-expanded", "false");
+        navMobile.hidden = true;
+      });
     });
   }
 
-  // Proof slider controls
-  const track = $("#proofTrack");
-  const prev = $("#proofPrev");
-  const next = $("#proofNext");
+  // Proof scroller controls
+  const proofTrack = document.getElementById("proofTrack");
+  const proofPrev = document.getElementById("proofPrev");
+  const proofNext = document.getElementById("proofNext");
 
   const scrollByCard = (dir) => {
-    if (!track) return;
-    const card = track.querySelector(".proof__card");
-    const amount = card ? card.getBoundingClientRect().width + 12 : 260;
-    track.scrollBy({ left: dir * amount, behavior: "smooth" });
+    if (!proofTrack) return;
+    const card = proofTrack.querySelector(".proof__card");
+    const cardWidth = card ? card.getBoundingClientRect().width : 320;
+    proofTrack.scrollBy({ left: dir * (cardWidth + 12), behavior: "smooth" });
   };
 
-  prev?.addEventListener("click", () => scrollByCard(-1));
-  next?.addEventListener("click", () => scrollByCard(1));
+  if (proofPrev) proofPrev.addEventListener("click", () => scrollByCard(-1));
+  if (proofNext) proofNext.addEventListener("click", () => scrollByCard(1));
 
-  // Lead form validation + submit
-  const form = $("#leadForm");
-  const success = $("#formSuccess");
-  const failBox = $("#formFail");
-
-  if (!form) {
-    console.error("leadForm not found — check that <form id='leadForm'> exists in index.html");
-    return;
-  }
+  // Lead form
+  const form = document.getElementById("leadForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const successEl = document.getElementById("formSuccess");
+  const failEl = document.getElementById("formFail");
 
   const setError = (name, msg) => {
     const el = document.querySelector(`[data-error-for="${name}"]`);
     if (el) el.textContent = msg || "";
   };
 
-  const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(String(v || "").trim());
-
-  const isPhone = (v) => {
-    const s = String(v || "").trim();
-    const digits = s.replace(/\D/g, "");
-    const charsOk = /^[+()\-\s\d]+$/.test(s);
-    return charsOk && digits.length >= 9;
+  const clearErrors = () => {
+    ["name", "phone", "email", "address"].forEach((k) => setError(k, ""));
   };
 
-  const validate = (data) => {
-    let ok = true;
-
-    if (!data.name || data.name.trim().length < 2) {
-      setError("name", "Please complete the form field.");
-      ok = false;
-    } else setError("name", "");
-
-    if (!isPhone(data.phone)) {
-      setError("phone", "Input is not a valid contact number");
-      ok = false;
-    } else setError("phone", "");
-
-    if (!isEmail(data.email)) {
-      setError("email", "Input is not a valid email address!");
-      ok = false;
-    } else setError("email", "");
-
-    if (!data.address || data.address.trim().length < 6) {
-      setError("address", "Please enter the property address.");
-      ok = false;
-    } else setError("address", "");
-
-    return ok;
+  const showSuccess = () => {
+    if (successEl) successEl.hidden = false;
+    if (failEl) failEl.hidden = true;
   };
 
-  ["name", "phone", "email", "address"].forEach((id) => {
-    const el = document.getElementById(id);
-    el?.addEventListener("input", () => setError(id, ""));
-  });
-
-  const setLoading = (isLoading) => {
-    const btn = $("#submitBtn") || form.querySelector('button[type="submit"]');
-    if (!btn) return;
-    btn.disabled = isLoading;
-    btn.style.opacity = isLoading ? "0.82" : "1";
-    btn.style.cursor = isLoading ? "not-allowed" : "pointer";
+  const showFail = (msg) => {
+    if (successEl) successEl.hidden = true;
+    if (failEl) {
+      failEl.hidden = false;
+      // Optional: if you want message text inside fail box, keep it simple:
+      // (Your existing markup doesn’t include a span, so we leave it as-is.)
+    }
+    console.error(msg || "Lead submit failed");
   };
+
+  const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const clean = (v) => (v || "").trim();
+
+  if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (success) success.hidden = true;
-    if (failBox) failBox.hidden = true;
+    clearErrors();
+    if (successEl) successEl.hidden = true;
+    if (failEl) failEl.hidden = true;
 
-    const data = {
-      // renamed honeypot key to avoid autofill issues
-      website: $("#company")?.value || "",
-      name: $("#name")?.value || "",
-      phone: $("#phone")?.value || "",
-      email: $("#email")?.value || "",
-      address: $("#address")?.value || "",
-      message: $("#message")?.value || "",
-      page_url: window.location.href,
-      user_agent: navigator.userAgent
-    };
+    // IMPORTANT: Clear honeypot in case browser autofilled it (prevents false "Spam detected")
+    const hp = document.getElementById("website");
+    if (hp) hp.value = "";
 
-    if (!validate(data)) return;
+    const name = clean(document.getElementById("name")?.value);
+    const phone = clean(document.getElementById("phone")?.value);
+    const email = clean(document.getElementById("email")?.value);
+    const address = clean(document.getElementById("address")?.value);
+    const message = clean(document.getElementById("message")?.value);
+
+    let ok = true;
+
+    if (!name) { setError("name", "Please enter your name."); ok = false; }
+    if (!phone || phone.length < 7) { setError("phone", "Please enter a valid contact number."); ok = false; }
+    if (!email || !isEmail(email)) { setError("email", "Please enter a valid email address."); ok = false; }
+    if (!address) { setError("address", "Please enter the property address."); ok = false; }
+
+    if (!ok) return;
+
+    const payload = { name, phone, email, address, message };
 
     try {
-      setLoading(true);
+      if (submitBtn) submitBtn.disabled = true;
 
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload),
       });
 
-      const out = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({}));
 
-      if (!res.ok || out?.ok !== true) throw new Error(out?.error || "Request failed");
+      if (!res.ok) {
+        // Surface server error to console for debugging
+        console.error("API error:", res.status, data);
+        showFail(data?.error || "Request failed");
+        return;
+      }
 
+      // success
       form.reset();
-      if (success) success.hidden = false;
+      showSuccess();
     } catch (err) {
-      console.error("Lead submit failed:", err);
-      if (failBox) failBox.hidden = false;
+      showFail(err?.message || String(err));
     } finally {
-      setLoading(false);
+      if (submitBtn) submitBtn.disabled = false;
     }
   });
 })();
+
