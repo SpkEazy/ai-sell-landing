@@ -388,86 +388,107 @@
       </div>
     </section>
 
-    <!-- Proof -->
-    <section class="section section--alt" id="proof">
-      <div class="container">
-        <header class="section__head">
-          <h2>Recently sold</h2>
-          <p>Tip: these images must exist at <code>static/assets/sold/sold-1.jpg</code> ... <code>sold-6.jpg</code>.</p>
-        </header>
+<!-- Proof -->
+<section class="section section--alt" id="proof">
+  <div class="container">
+    <header class="section__head">
+      <h2>Recently sold</h2>
+      <p>Real results achieved through AuctionInc’s structured auction process.</p>
+    </header>
 
-        <div class="proof">
-          <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold for</div>
-              <div class="proof__price">R 2 800 000</div>
-              <div class="proof__meta"><strong>Suburb Name</strong> • Residential</div>
-            </div>
+    <div class="proof">
+      <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
 
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold for</div>
-              <div class="proof__price">R 13 500 000</div>
-              <div class="proof__meta"><strong>Suburb Name</strong> • Premium Home</div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold for</div>
-              <div class="proof__price">R 5 400 000</div>
-              <div class="proof__meta"><strong>Suburb Name</strong> • Competitive bidding</div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold for</div>
-              <div class="proof__price">R 12 500 000</div>
-              <div class="proof__meta"><strong>Suburb Name</strong> • Commercial</div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold for</div>
-              <div class="proof__price">R 8 900 000</div>
-              <div class="proof__meta"><strong>Suburb Name</strong> • Luxury Apartment</div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold for</div>
-              <div class="proof__price">R 3 750 000</div>
-              <div class="proof__meta"><strong>Suburb Name</strong> • Family Home</div>
-            </div>
+        <!-- Sold 1 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
           </div>
-
-          <div class="proof__controls">
-            <button class="btn btn--ghost" id="proofPrev" type="button" aria-label="Previous">←</button>
-            <button class="btn btn--ghost" id="proofNext" type="button" aria-label="Next">→</button>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 17.3 Million</div>
+          <div class="proof__meta">
+            <strong>Eldo Glen</strong> • Timeless Manor on ±11 647m²
           </div>
         </div>
 
-        <div class="final-cta">
-          <div>
-            <h3>Sell with certainty in a defined timeframe.</h3>
-            <p>Tell us about your property — we’ll advise the best auction strategy.</p>
+        <!-- Sold 2 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley" loading="lazy">
           </div>
-          <a class="btn btn--primary" href="#lead">Send enquiry</a>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 80 Million</div>
+          <div class="proof__meta">
+            <strong>Kimberley</strong> • Wholesale Fuel Depot
+          </div>
         </div>
+
+        <!-- Sold 3 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Douglasdale 4-bedroom home" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 2.5 Million</div>
+          <div class="proof__meta">
+            <strong>Douglasdale</strong> • Elegant 4-Bedroom Home
+          </div>
+        </div>
+
+        <!-- Sold 4 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 24.25 Million</div>
+          <div class="proof__meta">
+            <strong>Kew, Johannesburg</strong> • 72 Fully Let Apartments
+          </div>
+        </div>
+
+        <!-- Sold 5 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Margate mansionette sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 1.5 Million</div>
+          <div class="proof__meta">
+            <strong>Margate</strong> • 3-Bedroom Mansionette
+          </div>
+        </div>
+
+        <!-- Sold 6 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 9.3 Million</div>
+          <div class="proof__meta">
+            <strong>Linbro Park</strong> • High-Exposure Retail Park
+          </div>
+        </div>
+
       </div>
-    </section>
+
+      <div class="proof__controls">
+        <button class="btn btn--ghost" id="proofPrev" type="button" aria-label="Previous">←</button>
+        <button class="btn btn--ghost" id="proofNext" type="button" aria-label="Next">→</button>
+      </div>
+    </div>
+
+    <div class="final-cta">
+      <div>
+        <h3>These are not listings. These are outcomes.</h3>
+        <p>Let us show you what a focused auction strategy can achieve for your property.</p>
+      </div>
+      <a class="btn btn--primary" href="#lead">Send enquiry</a>
+    </div>
+  </div>
+</section>
+
   </main>
 
   <!-- Sticky mobile CTA -->
@@ -499,4 +520,5 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+
 
