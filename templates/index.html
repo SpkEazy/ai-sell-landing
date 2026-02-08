@@ -11,7 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <!-- Your existing CSS file -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
 
@@ -28,6 +27,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="#how">How it works</a>
         <a href="#why">Why auction</a>
+        <a href="#environment">The environment</a>
         <a href="#marketing">Marketing</a>
         <a href="#proof">Recently sold</a>
       </nav>
@@ -39,6 +39,7 @@
     <div class="nav__mobile" id="navMobile" hidden>
       <a href="#how">How it works</a>
       <a href="#why">Why auction</a>
+      <a href="#environment">The environment</a>
       <a href="#marketing">Marketing</a>
       <a href="#proof">Recently sold</a>
       <a class="btn btn--primary" href="#lead">Get a call-back</a>
@@ -111,7 +112,7 @@
           </div>
 
           <form id="leadForm" class="form" novalidate>
-            <!-- Honeypot (anti-spam). IMPORTANT: name/id is NOT "company" to avoid browser autofill -->
+            <!-- Honeypot -->
             <div class="hp" aria-hidden="true">
               <label for="website">Website</label>
               <input
@@ -260,74 +261,69 @@
         </div>
       </div>
     </section>
-<!-- Narrative Gallery -->
-<section class="section narrative" id="environment">
-  <div class="container">
-    <header class="section__head">
-      <h2>The environment your property enters</h2>
-      <p>
-        Selling with AuctionInc means more than exposure.
-        It means placing your asset into a high-intent, professionally run auction environment.
-      </p>
-    </header>
 
-    <div class="narrative__grid">
-      <!-- Auction Intro -->
-      <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/auction_intro.jpg') }}" alt="Auction atmosphere">
-        <figcaption>
-          <h3>Auction day energy</h3>
-          <p>Your property launches into a live, time-bound event — not a passive listing.</p>
-        </figcaption>
-      </figure>
+    <!-- Narrative Gallery -->
+    <section class="section narrative" id="environment">
+      <div class="container">
+        <header class="section__head">
+          <h2>The environment your property enters</h2>
+          <p>
+            Selling with AuctionInc means more than exposure.
+            It means placing your asset into a high-intent, professionally run auction environment.
+          </p>
+        </header>
 
-      <!-- Serious Sellers -->
-      <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/serious_sellers.jpg') }}" alt="Serious sellers">
-        <figcaption>
-          <h3>Serious sellers</h3>
-          <p>Assets are brought to market with clear intent, timelines and strategy.</p>
-        </figcaption>
-      </figure>
+        <div class="narrative__grid">
+          <figure class="narrative__item">
+            <img src="{{ url_for('static', filename='assets/narrative/auction_intro.jpg') }}" alt="Auction atmosphere" loading="lazy">
+            <figcaption>
+              <h3>Auction day energy</h3>
+              <p>Your property launches into a live, time-bound event — not a passive listing.</p>
+            </figcaption>
+          </figure>
 
-      <!-- Motivated Bidders -->
-      <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/motivated_bidders.jpg') }}" alt="Motivated bidders">
-        <figcaption>
-          <h3>Motivated bidders</h3>
-          <p>Competitive bidding environments drive urgency and price discovery.</p>
-        </figcaption>
-      </figure>
+          <figure class="narrative__item">
+            <img src="{{ url_for('static', filename='assets/narrative/serious_sellers.jpg') }}" alt="Serious sellers" loading="lazy">
+            <figcaption>
+              <h3>Serious sellers</h3>
+              <p>Assets are brought to market with clear intent, timelines and strategy.</p>
+            </figcaption>
+          </figure>
 
-      <!-- Expert Brokers -->
-      <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/expert_brokers.jpg') }}" alt="Expert brokers">
-        <figcaption>
-          <h3>Expert brokers</h3>
-          <p>Experienced auctioneers and brokers guide the process from mandate to sale.</p>
-        </figcaption>
-      </figure>
+          <figure class="narrative__item">
+            <img src="{{ url_for('static', filename='assets/narrative/motivated_bidders.jpg') }}" alt="Motivated bidders" loading="lazy">
+            <figcaption>
+              <h3>Motivated bidders</h3>
+              <p>Competitive bidding environments drive urgency and price discovery.</p>
+            </figcaption>
+          </figure>
 
-      <!-- Industry Leaders -->
-      <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/industry_leaders.jpg') }}" alt="Industry leaders networking">
-        <figcaption>
-          <h3>Industry leaders present</h3>
-          <p>Auctions become networking moments where decision-makers converge.</p>
-        </figcaption>
-      </figure>
+          <figure class="narrative__item">
+            <img src="{{ url_for('static', filename='assets/narrative/expert_brokers.jpg') }}" alt="Expert brokers" loading="lazy">
+            <figcaption>
+              <h3>Expert brokers</h3>
+              <p>Experienced auctioneers and brokers guide the process from mandate to sale.</p>
+            </figcaption>
+          </figure>
 
-      <!-- Live Streaming -->
-      <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/live_streaming.jpg') }}" alt="Live streaming auction">
-        <figcaption>
-          <h3>Nationwide live participation</h3>
-          <p>Buyers bid live via app, phone or livestream — from anywhere in South Africa.</p>
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
+          <figure class="narrative__item">
+            <img src="{{ url_for('static', filename='assets/narrative/industry_leaders.jpg') }}" alt="Industry leaders networking" loading="lazy">
+            <figcaption>
+              <h3>Industry leaders present</h3>
+              <p>Auctions become networking moments where decision-makers converge.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="narrative__item">
+            <img src="{{ url_for('static', filename='assets/narrative/live_streaming.jpg') }}" alt="Live streaming auction" loading="lazy">
+            <figcaption>
+              <h3>Nationwide live participation</h3>
+              <p>Buyers bid live via app, phone or livestream — from anywhere in South Africa.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
 
     <!-- Marketing -->
     <section class="section" id="marketing">
@@ -397,14 +393,14 @@
       <div class="container">
         <header class="section__head">
           <h2>Recently sold</h2>
-          <p>Tip: these images must exist at <code>static/assets/sold-1.jpg</code> ... <code>sold-6.jpg</code>.</p>
+          <p>Tip: these images must exist at <code>static/assets/sold/sold-1.jpg</code> ... <code>sold-6.jpg</code>.</p>
         </header>
 
         <div class="proof">
           <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
             <div class="proof__card">
               <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold-1.jpg') }}" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="" loading="lazy">
               </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 2 800 000</div>
@@ -413,7 +409,7 @@
 
             <div class="proof__card">
               <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold-2.jpg') }}" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="" loading="lazy">
               </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 13 500 000</div>
@@ -422,7 +418,7 @@
 
             <div class="proof__card">
               <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold-3.jpg') }}" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="" loading="lazy">
               </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 5 400 000</div>
@@ -431,7 +427,7 @@
 
             <div class="proof__card">
               <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold-4.jpg') }}" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="" loading="lazy">
               </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 12 500 000</div>
@@ -440,7 +436,7 @@
 
             <div class="proof__card">
               <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold-5.jpg') }}" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="" loading="lazy">
               </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 8 900 000</div>
@@ -449,7 +445,7 @@
 
             <div class="proof__card">
               <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold-6.jpg') }}" alt="" loading="lazy">
+                <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="" loading="lazy">
               </div>
               <div class="proof__kicker">Sold for</div>
               <div class="proof__price">R 3 750 000</div>
@@ -503,5 +499,4 @@
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-
 
