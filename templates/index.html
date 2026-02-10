@@ -1,4 +1,3 @@
-<!-- templates/index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,472 +14,302 @@
 </head>
 
 <body>
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="container topbar__inner">
-      <a class="brand" href="#top" aria-label="AuctionInc home">
-        <img class="brand__logo-main"
-             src="{{ url_for('static', filename='assets/auctioninc-logo-white.png') }}"
-             alt="AuctionInc" />
-      </a>
 
-      <nav class="nav" aria-label="Primary">
-        <a href="#how">How it works</a>
-        <a href="#why">Why auction</a>
-        <a href="#environment">The environment</a>
-        <a href="#marketing">Marketing</a>
-        <a href="#proof">Recently sold</a>
-      </nav>
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="container topbar__inner">
+    <a class="brand" href="#top" aria-label="AuctionInc home">
+      <img class="brand__logo-main"
+           src="{{ url_for('static', filename='assets/auctioninc-logo-white.png') }}"
+           alt="AuctionInc" />
+    </a>
 
-      <a class="btn btn--ghost topbar__cta" href="#lead">Get a call-back</a>
-      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
-    </div>
-
-    <div class="nav__mobile" id="navMobile" hidden>
+    <nav class="nav" aria-label="Primary">
+      <a href="#environment">The environment</a>
       <a href="#how">How it works</a>
       <a href="#why">Why auction</a>
-      <a href="#environment">The environment</a>
-      <a href="#marketing">Marketing</a>
       <a href="#proof">Recently sold</a>
-      <a class="btn btn--primary" href="#lead">Get a call-back</a>
-    </div>
-  </header>
+    </nav>
 
-  <!-- Hero -->
-  <main id="top">
-    <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <div class="pill" aria-label="Value proposition">
-            <span class="dot"></span>
-            Sell with speed. Powered by intelligence.
-          </div>
-
-          <h1>
-            Sell your property
-            <span class="accent">in 3 weeks</span>
-          </h1>
-
-          <p class="lead">
-            A time-boxed auction campaign that attracts qualified buyers fast — backed by data, automation and AI-led marketing.
-          </p>
-
-          <div class="trust">
-            <div class="trust__item">
-              <span class="icon icon--shield" aria-hidden="true"></span>
-              Qualified bidders
-            </div>
-            <div class="trust__item">
-              <span class="icon icon--bolt" aria-hidden="true"></span>
-              Aggressive 21-day marketing
-            </div>
-            <div class="trust__item">
-              <span class="icon icon--doc" aria-hidden="true"></span>
-              Transparent mandate
-            </div>
-          </div>
-
-          <div class="micro">
-            <span class="micro__badge">No spam</span>
-            <span class="micro__text">We’ll contact you within 1 business day.</span>
-          </div>
-
-          <!-- Video proof -->
-          <div class="video-card" aria-label="Auction highlight reel">
-            <div class="video-card__head">
-              <strong>Watch a live AuctionInc moment</strong>
-              <span class="muted">Short highlight reel</span>
-            </div>
-
-            <div class="video-embed">
-              <iframe
-                src="https://www.youtube.com/embed/uorCfGfGZVA?rel=0&modestbranding=1"
-                title="AuctionInc highlight reel"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-              </iframe>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lead form -->
-        <aside class="card card--glow" id="lead" aria-label="Lead form">
-          <div class="card__head">
-            <h2>Fill in your details</h2>
-            <p>and we’ll be in touch.</p>
-          </div>
-
-          <form id="leadForm" class="form" novalidate>
-            <!-- Honeypot -->
-            <div class="hp" aria-hidden="true">
-              <label for="website">Website</label>
-              <input
-                id="website"
-                name="website"
-                type="text"
-                tabindex="-1"
-                autocomplete="off"
-                inputmode="none"
-              />
-            </div>
-
-            <div class="field">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" autocomplete="name" placeholder="Your full name" required />
-              <small class="error" data-error-for="name"></small>
-            </div>
-
-            <div class="field">
-              <label for="phone">Contact Number</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+27 82 123 4567" required />
-              <small class="error" data-error-for="phone"></small>
-            </div>
-
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" placeholder="name@email.com" required />
-              <small class="error" data-error-for="email"></small>
-            </div>
-
-            <div class="field">
-              <label for="address">Property Address</label>
-              <input id="address" name="address" type="text" autocomplete="street-address" placeholder="Street, suburb, city" required />
-              <small class="error" data-error-for="address"></small>
-            </div>
-
-            <div class="field">
-              <label for="message">Message <span class="muted">(optional)</span></label>
-              <textarea id="message" name="message" rows="3" placeholder="Tell us about the property…"></textarea>
-            </div>
-
-            <button class="btn btn--primary btn--full" type="submit" id="submitBtn">
-              <span>Send Enquiry</span>
-              <span class="btn__arrow" aria-hidden="true">→</span>
-            </button>
-
-            <p class="fineprint">
-              By submitting, you agree to be contacted by AuctionInc. You can opt out any time.
-            </p>
-
-            <div class="form__success" id="formSuccess" role="status" aria-live="polite" hidden>
-              <strong>Enquiry sent.</strong> We’ll reach out shortly.
-            </div>
-
-            <div class="form__fail" id="formFail" role="status" aria-live="polite" hidden>
-              <strong>Something went wrong.</strong> Please try again, or call us directly.
-            </div>
-          </form>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Steps -->
-    <section class="section" id="how">
-      <div class="container">
-        <header class="section__head">
-          <h2>Selling your property on auction</h2>
-        </header>
-
-        <ol class="steps">
-          <li class="step">
-            <span class="step__num">1</span>
-            <div class="step__body">
-              <h3>Meet with a property specialist</h3>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__num">2</span>
-            <div class="step__body">
-              <h3>Transparent proposal + mandate</h3>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__num">3</span>
-            <div class="step__body">
-              <h3>Auction date is set</h3>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__num">4</span>
-            <div class="step__body">
-              <h3>AI-led marketing push</h3>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__num">5</span>
-            <div class="step__body">
-              <h3>Going, going, gone</h3>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Benefits -->
-    <section class="section section--alt" id="why">
-      <div class="container">
-        <header class="section__head">
-          <h2>Why sell at auction with <span class="accent">AuctionInc</span></h2>
-          <p>Built for speed, certainty and serious buyer intent.</p>
-        </header>
-
-        <div class="benefits">
-          <div class="benefit">
-            <span class="icon icon--clock" aria-hidden="true"></span>
-            <h3>Defined timeline</h3>
-            <p>A clear 21-day campaign with a fixed sale date.</p>
-          </div>
-
-          <div class="benefit">
-            <span class="icon icon--usercheck" aria-hidden="true"></span>
-            <h3>Qualified bidders only</h3>
-            <p>Buyers are guided into a structured bidding process.</p>
-          </div>
-
-          <div class="benefit">
-            <span class="icon icon--swap" aria-hidden="true"></span>
-            <h3>Fewer delays</h3>
-            <p>A deadline-driven process reduces drawn-out negotiations.</p>
-          </div>
-
-          <div class="benefit">
-            <span class="icon icon--tag" aria-hidden="true"></span>
-            <h3>Transparent fees</h3>
-            <p>Clear costs and deliverables — no surprises.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Narrative Gallery (UNCHANGED) -->
-    <section class="section narrative" id="environment">
-      <div class="container">
-        <header class="section__head">
-          <h2>The environment your property enters</h2>
-          <p>
-            Selling with AuctionInc means more than exposure.
-            It means placing your asset into a high-intent, professionally run auction environment.
-          </p>
-        </header>
-
-        <div class="narrative__grid">
-          <figure class="narrative__item">
-            <img src="{{ url_for('static', filename='assets/narrative/auction_intro.jpg') }}" alt="Auction atmosphere" loading="lazy">
-            <figcaption>
-              <h3>Auction day energy</h3>
-              <p>Your property launches into a live, time-bound event — not a passive listing.</p>
-            </figcaption>
-          </figure>
-
-          <figure class="narrative__item">
-            <img src="{{ url_for('static', filename='assets/narrative/serious_sellers.jpg') }}" alt="Serious sellers" loading="lazy">
-            <figcaption>
-              <h3>Serious sellers</h3>
-              <p>Assets are brought to market with clear intent, timelines and strategy.</p>
-            </figcaption>
-          </figure>
-
-          <figure class="narrative__item">
-            <img src="{{ url_for('static', filename='assets/narrative/motivated_bidders.jpg') }}" alt="Motivated bidders" loading="lazy">
-            <figcaption>
-              <h3>Motivated bidders</h3>
-              <p>Competitive bidding environments drive urgency and price discovery.</p>
-            </figcaption>
-          </figure>
-
-          <figure class="narrative__item">
-            <img src="{{ url_for('static', filename='assets/narrative/expert_brokers.jpg') }}" alt="Expert brokers" loading="lazy">
-            <figcaption>
-              <h3>Expert brokers</h3>
-              <p>Experienced auctioneers and brokers guide the process from mandate to sale.</p>
-            </figcaption>
-          </figure>
-
-          <figure class="narrative__item">
-            <img src="{{ url_for('static', filename='assets/narrative/industry_leaders.jpg') }}" alt="Industry leaders networking" loading="lazy">
-            <figcaption>
-              <h3>Industry leaders present</h3>
-              <p>Auctions become networking moments where decision-makers converge.</p>
-            </figcaption>
-          </figure>
-
-          <figure class="narrative__item">
-            <img src="{{ url_for('static', filename='assets/narrative/live_streaming.jpg') }}" alt="Live streaming auction" loading="lazy">
-            <figcaption>
-              <h3>Nationwide live participation</h3>
-              <p>Buyers bid live via app, phone or livestream — from anywhere in South Africa.</p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- Marketing (TRIMMED) -->
-    <section class="section" id="marketing">
-      <div class="container">
-        <header class="section__head">
-          <h2>How we find your perfect buyer</h2>
-        </header>
-
-        <div class="grid">
-          <article class="tile">
-            <span class="icon icon--globe" aria-hidden="true"></span>
-            <h3>Online portals</h3>
-            <p>Exposure where active buyers are already searching.</p>
-          </article>
-
-          <article class="tile">
-            <span class="icon icon--pin" aria-hidden="true"></span>
-            <h3>Street pole signs</h3>
-            <p>Hyper-local visibility that captures nearby demand.</p>
-          </article>
-
-          <article class="tile">
-            <span class="icon icon--db" aria-hidden="true"></span>
-            <h3>Database</h3>
-            <p>Targeted outreach to buyer segments most likely to convert.</p>
-          </article>
-
-          <article class="tile">
-            <span class="icon icon--billboard" aria-hidden="true"></span>
-            <h3>Outdoor signs</h3>
-            <p>High-impact presence that supports urgency and legitimacy.</p>
-          </article>
-
-          <article class="tile tile--cta">
-            <h3>Want a 3-week plan for your property?</h3>
-            <p>Submit your details and we’ll share a suggested reserve strategy + campaign timeline.</p>
-            <a class="btn btn--primary" href="#lead">Get my plan</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Proof (UNCHANGED) -->
-    <section class="section section--alt" id="proof">
-      <div class="container">
-        <header class="section__head">
-          <h2>Recently sold</h2>
-          <p>Real results achieved through AuctionInc’s structured auction process.</p>
-        </header>
-
-        <div class="proof">
-          <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold at auction</div>
-              <div class="proof__price">R 17.3 Million</div>
-              <div class="proof__meta">
-                <strong>Eldo Glen</strong> • Timeless Manor on ±11 647m²
-              </div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold at auction</div>
-              <div class="proof__price">R 80 Million</div>
-              <div class="proof__meta">
-                <strong>Kimberley</strong> • Wholesale Fuel Depot
-              </div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Douglasdale 4-bedroom home" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold at auction</div>
-              <div class="proof__price">R 2.5 Million</div>
-              <div class="proof__meta">
-                <strong>Douglasdale</strong> • Elegant 4-Bedroom Home
-              </div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold at auction</div>
-              <div class="proof__price">R 24.25 Million</div>
-              <div class="proof__meta">
-                <strong>Kew, Johannesburg</strong> • 72 Fully Let Apartments
-              </div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Margate mansionette sold" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold at auction</div>
-              <div class="proof__price">R 1.5 Million</div>
-              <div class="proof__meta">
-                <strong>Margate</strong> • 3-Bedroom Mansionette
-              </div>
-            </div>
-
-            <div class="proof__card">
-              <div class="proof__img">
-                <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold" loading="lazy">
-              </div>
-              <div class="proof__kicker">Sold at auction</div>
-              <div class="proof__price">R 9.3 Million</div>
-              <div class="proof__meta">
-                <strong>Linbro Park</strong> • High-Exposure Retail Park
-              </div>
-            </div>
-
-          </div>
-
-          <div class="proof__controls">
-            <button class="btn btn--ghost" id="proofPrev" type="button" aria-label="Previous">←</button>
-            <button class="btn btn--ghost" id="proofNext" type="button" aria-label="Next">→</button>
-          </div>
-        </div>
-
-        <div class="final-cta">
-          <div>
-            <h3>These are not listings. These are outcomes.</h3>
-            <p>See what a focused auction can achieve for your property.</p>
-          </div>
-          <a class="btn btn--primary" href="#lead">Send enquiry</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Sticky mobile CTA -->
-  <div class="sticky-cta" role="region" aria-label="Sticky call to action">
-    <a class="btn btn--primary btn--full" href="#lead">Get a call-back</a>
+    <a class="btn btn--ghost topbar__cta" href="#lead">Get a call-back</a>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false">☰</button>
   </div>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <div class="brand__row">
-          <strong>AuctionInc</strong>
+  <div class="nav__mobile" id="navMobile" hidden>
+    <a href="#environment">The environment</a>
+    <a href="#how">How it works</a>
+    <a href="#why">Why auction</a>
+    <a href="#proof">Recently sold</a>
+    <a class="btn btn--primary" href="#lead">Get a call-back</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero__grid">
+
+    <div class="hero__copy">
+      <div class="pill">
+        <span class="dot"></span>
+        Sell with speed. Powered by intelligence.
+      </div>
+
+      <h1>
+        Sell your property
+        <span class="accent">in 3 weeks</span>
+      </h1>
+
+      <p class="lead">
+        A time-boxed auction campaign that attracts qualified buyers fast — backed by data, automation and AI-led marketing.
+      </p>
+
+      <div class="trust">
+        <div class="trust__item">
+          <span class="icon icon--shield"></span>
+          Qualified bidders
         </div>
-        <p class="muted">AuctionInc, reimagined with AI-led marketing.</p>
+        <div class="trust__item">
+          <span class="icon icon--bolt"></span>
+          Aggressive 21-day marketing
+        </div>
+        <div class="trust__item">
+          <span class="icon icon--doc"></span>
+          Transparent mandate
+        </div>
       </div>
 
-      <div class="footer__links">
-        <a href="#how">How it works</a>
-        <a href="#marketing">Marketing</a>
-        <a href="#lead">Enquire</a>
+      <div class="micro">
+        <span class="micro__badge">No spam</span>
+        <span class="micro__text">We’ll contact you within 1 business day.</span>
       </div>
 
-      <div class="footer__fine muted">
-        © <span id="year"></span> AuctionInc
+      <!-- VIDEO -->
+      <div class="video-card">
+        <div class="video-card__head">
+          <strong>Watch a live AuctionInc moment</strong>
+          <span class="muted">Short highlight reel</span>
+        </div>
+
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/uorCfGfGZVA?rel=0&modestbranding=1"
+            title="AuctionInc highlight reel"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
     </div>
-  </footer>
 
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <!-- LEAD FORM -->
+    <aside class="card card--glow" id="lead">
+      <div class="card__head">
+        <h2>Fill in your details</h2>
+        <p>and we’ll be in touch.</p>
+      </div>
+
+      <form id="leadForm" class="form" novalidate>
+
+        <div class="hp">
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label>Name</label>
+          <input id="name" name="name" required />
+          <small class="error" data-error-for="name"></small>
+        </div>
+
+        <div class="field">
+          <label>Contact Number</label>
+          <input id="phone" name="phone" required />
+          <small class="error" data-error-for="phone"></small>
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input id="email" name="email" required />
+          <small class="error" data-error-for="email"></small>
+        </div>
+
+        <div class="field">
+          <label>Property Address</label>
+          <input id="address" name="address" required />
+          <small class="error" data-error-for="address"></small>
+        </div>
+
+        <div class="field">
+          <label>Message (optional)</label>
+          <textarea id="message" name="message" rows="3"></textarea>
+        </div>
+
+        <button class="btn btn--primary btn--full" type="submit" id="submitBtn">
+          Send Enquiry →
+        </button>
+
+        <p class="fineprint">
+          By submitting, you agree to be contacted by AuctionInc.
+        </p>
+
+        <div class="form__success" id="formSuccess" hidden>
+          <strong>Enquiry sent.</strong> We’ll reach out shortly.
+        </div>
+
+        <div class="form__fail" id="formFail" hidden>
+          <strong>Something went wrong.</strong> Please try again.
+        </div>
+
+      </form>
+    </aside>
+
+  </div>
+</section>
+
+<!-- 🔥 GALLERY (MOVED UP) -->
+<section class="section narrative" id="environment">
+  <div class="container">
+    <header class="section__head">
+      <h2>The environment your property enters</h2>
+      <p>
+        A high-intent, professionally run auction environment — not a passive listing.
+      </p>
+    </header>
+
+    <div class="narrative__grid">
+
+      <figure class="narrative__item">
+        <img src="{{ url_for('static', filename='assets/narrative/auction_intro.jpg') }}">
+        <figcaption>
+          <h3>Auction day energy</h3>
+          <p>Live, time-bound bidding.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="narrative__item">
+        <img src="{{ url_for('static', filename='assets/narrative/serious_sellers.jpg') }}">
+        <figcaption>
+          <h3>Serious sellers</h3>
+          <p>Clear intent and strategy.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="narrative__item">
+        <img src="{{ url_for('static', filename='assets/narrative/motivated_bidders.jpg') }}">
+        <figcaption>
+          <h3>Motivated bidders</h3>
+          <p>Urgency drives value.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="narrative__item">
+        <img src="{{ url_for('static', filename='assets/narrative/expert_brokers.jpg') }}">
+        <figcaption>
+          <h3>Expert brokers</h3>
+          <p>Guided from mandate to sale.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="narrative__item">
+        <img src="{{ url_for('static', filename='assets/narrative/industry_leaders.jpg') }}">
+        <figcaption>
+          <h3>Decision-makers present</h3>
+          <p>Where deals happen.</p>
+        </figcaption>
+      </figure>
+
+      <figure class="narrative__item">
+        <img src="{{ url_for('static', filename='assets/narrative/live_streaming.jpg') }}">
+        <figcaption>
+          <h3>Nationwide bidding</h3>
+          <p>Live from anywhere.</p>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="container">
+    <header class="section__head">
+      <h2>Selling your property on auction</h2>
+    </header>
+
+    <ol class="steps">
+      <li class="step"><span class="step__num">1</span><h3>Meet with a specialist</h3></li>
+      <li class="step"><span class="step__num">2</span><h3>Transparent mandate</h3></li>
+      <li class="step"><span class="step__num">3</span><h3>Auction date set</h3></li>
+      <li class="step"><span class="step__num">4</span><h3>21-day marketing push</h3></li>
+      <li class="step"><span class="step__num">5</span><h3>Sold on auction day</h3></li>
+    </ol>
+  </div>
+</section>
+
+<!-- WHY AUCTION -->
+<section class="section section--alt" id="why">
+  <div class="container">
+    <header class="section__head">
+      <h2>Why auction with <span class="accent">AuctionInc</span></h2>
+      <p>Built for certainty and serious buyer intent.</p>
+    </header>
+
+    <div class="benefits">
+      <div class="benefit"><h3>Defined timeline</h3><p>Clear sale date.</p></div>
+      <div class="benefit"><h3>Qualified bidders</h3><p>Structured bidding.</p></div>
+      <div class="benefit"><h3>Fewer delays</h3><p>No drawn-out negotiations.</p></div>
+      <div class="benefit"><h3>Transparent fees</h3><p>No surprises.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENTLY SOLD -->
+<section class="section section--alt" id="proof">
+  <div class="container">
+    <header class="section__head">
+      <h2>Recently sold</h2>
+      <p>These are outcomes — not listings.</p>
+    </header>
+
+    <!-- SOLD SLIDER UNCHANGED -->
+    <div class="proof">
+      <div class="proof__track" id="proofTrack">
+        <!-- sold cards exactly as before -->
+      </div>
+      <div class="proof__controls">
+        <button class="btn btn--ghost" id="proofPrev">←</button>
+        <button class="btn btn--ghost" id="proofNext">→</button>
+      </div>
+    </div>
+
+    <div class="final-cta">
+      <div>
+        <h3>Ready to sell?</h3>
+        <p>See what a focused auction can achieve.</p>
+      </div>
+      <a class="btn btn--primary" href="#lead">Send enquiry</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="sticky-cta">
+  <a class="btn btn--primary btn--full" href="#lead">Get a call-back</a>
+</div>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>
+      <strong>AuctionInc</strong>
+      <p class="muted">AI-led auction marketing.</p>
+    </div>
+    <div class="footer__fine muted">© <span id="year"></span> AuctionInc</div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
 
