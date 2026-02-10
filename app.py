@@ -27,7 +27,15 @@ def _env(name: str, default: str | None = None) -> str | None:
     return v if v else None
 
 
-def send_lead_email(*, name: str, phone: str, email: str, address: str, message: str) -> None:
+def send_lead_email(
+    *,
+    name: str,
+    phone: str,
+    email: str,
+    address: str,
+    message: str,
+    attribution: dict | None = None,   # ✅ ADDED (optional)
+) -> None:
     smtp_server = _env("SMTP_SERVER")
     smtp_port = _env("SMTP_PORT")
     smtp_user = _env("SMTP_USER")
@@ -54,8 +62,28 @@ def send_lead_email(*, name: str, phone: str, email: str, address: str, message:
     msg["Subject"] = f"New AuctionInc Lead: {name}"
     msg["From"] = smtp_user
     msg["To"] = to_email
-    # Reply-to is helpful so you can reply directly to the lead
     msg["Reply-To"] = email
+
+    # ✅ Attribution formatting (safe + minimal)
+    attribution = attribution or {}
+    utm_source = (attribution.get("utm_source") or "").strip()
+    utm_medium = (attribution.get("utm_medium") or "").strip()
+    utm_campaign = (attribution.get("utm_campaign") or "").strip()
+    utm_content = (attribution.get("utm_content") or "").strip()
+    utm_term = (attribution.get("utm_term") or "").strip()
+    referrer = (attribution.get("referrer") or "").strip()
+    landing_url = (attribution.get("landing_url") or "").strip()
+
+    attribution_block = f"""
+Lead Source (Attribution)
+utm_source: {utm_source or "(none)"}
+utm_medium: {utm_medium or "(none)"}
+utm_campaign: {utm_campaign or "(none)"}
+utm_content: {utm_content or "(none)"}
+utm_term: {utm_term or "(none)"}
+referrer: {referrer or "(none)"}
+landing_url: {landing_url or "(none)"}
+""".strip()
 
     body = f"""New lead received from AuctionInc landing page
 
@@ -66,10 +94,11 @@ Property Address: {address}
 
 Message:
 {message if message else "(none)"}
+
+{attribution_block}
 """
     msg.set_content(body)
 
-    # Office365 SMTP: STARTTLS on 587
     with smtplib.SMTP(smtp_server, port_int, timeout=20) as server:
         server.ehlo()
         server.starttls()
@@ -80,11 +109,8 @@ Message:
 
 @app.post("/api/lead")
 def api_lead():
-    # Allow both JSON and form-encoded (JSON is preferred)
     data = request.get_json(silent=True) or request.form.to_dict()
 
-    # Honeypot check (IMPORTANT: this must match index.html name/id="website")
-    # If you later add it to the JSON payload, this will still protect you.
     if (data.get("website") or "").strip():
         return jsonify({"error": "Spam detected"}), 400
 
@@ -94,7 +120,11 @@ def api_lead():
     address = (data.get("address") or "").strip()
     message = (data.get("message") or "").strip()
 
-    # Basic validation
+    # ✅ ADDED: read attribution if provided (JSON sends it)
+    attribution = data.get("attribution") if isinstance(data, dict) else None
+    if not isinstance(attribution, dict):
+        attribution = None
+
     if not name:
         return jsonify({"error": "Name is required"}), 400
     if not phone or len(phone) < 7:
@@ -111,9 +141,9 @@ def api_lead():
             email=email,
             address=address,
             message=message,
+            attribution=attribution,   # ✅ ADDED
         )
     except Exception as e:
-        # Log to Render logs
         app.logger.exception("Failed to send lead email")
         return jsonify({"error": f"Email failed: {str(e)}"}), 500
 
@@ -121,5 +151,5 @@ def api_lead():
 
 
 if __name__ == "__main__":
-    # Local dev
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=True)
+
