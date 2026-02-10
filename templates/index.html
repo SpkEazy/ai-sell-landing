@@ -33,7 +33,7 @@
     </nav>
 
     <a class="btn btn--ghost topbar__cta" href="#lead">Get a call-back</a>
-    <button class="nav__toggle" id="navToggle" aria-expanded="false">☰</button>
+    <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-label="Open menu">☰</button>
   </div>
 
   <div class="nav__mobile" id="navMobile" hidden>
@@ -69,15 +69,15 @@
 
       <div class="trust">
         <div class="trust__item">
-          <span class="icon icon--shield"></span>
+          <span class="icon icon--shield" aria-hidden="true"></span>
           Qualified bidders
         </div>
         <div class="trust__item">
-          <span class="icon icon--bolt"></span>
+          <span class="icon icon--bolt" aria-hidden="true"></span>
           Aggressive 21-day marketing
         </div>
         <div class="trust__item">
-          <span class="icon icon--doc"></span>
+          <span class="icon icon--doc" aria-hidden="true"></span>
           Transparent mandate
         </div>
       </div>
@@ -88,7 +88,7 @@
       </div>
 
       <!-- VIDEO -->
-      <div class="video-card">
+      <div class="video-card" aria-label="Auction highlight reel">
         <div class="video-card__head">
           <strong>Watch a live AuctionInc moment</strong>
           <span class="muted">Short highlight reel</span>
@@ -98,6 +98,8 @@
           <iframe
             src="https://www.youtube.com/embed/uorCfGfGZVA?rel=0&modestbranding=1"
             title="AuctionInc highlight reel"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>
           </iframe>
         </div>
@@ -105,7 +107,7 @@
     </div>
 
     <!-- LEAD FORM -->
-    <aside class="card card--glow" id="lead">
+    <aside class="card card--glow" id="lead" aria-label="Lead form">
       <div class="card__head">
         <h2>Fill in your details</h2>
         <p>and we’ll be in touch.</p>
@@ -113,36 +115,36 @@
 
       <form id="leadForm" class="form" novalidate>
 
-        <div class="hp">
+        <div class="hp" aria-hidden="true">
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
         </div>
 
         <div class="field">
-          <label>Name</label>
-          <input id="name" name="name" required />
+          <label for="name">Name</label>
+          <input id="name" name="name" autocomplete="name" required />
           <small class="error" data-error-for="name"></small>
         </div>
 
         <div class="field">
-          <label>Contact Number</label>
-          <input id="phone" name="phone" required />
+          <label for="phone">Contact Number</label>
+          <input id="phone" name="phone" autocomplete="tel" required />
           <small class="error" data-error-for="phone"></small>
         </div>
 
         <div class="field">
-          <label>Email</label>
-          <input id="email" name="email" required />
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
           <small class="error" data-error-for="email"></small>
         </div>
 
         <div class="field">
-          <label>Property Address</label>
-          <input id="address" name="address" required />
+          <label for="address">Property Address</label>
+          <input id="address" name="address" autocomplete="street-address" required />
           <small class="error" data-error-for="address"></small>
         </div>
 
         <div class="field">
-          <label>Message (optional)</label>
+          <label for="message">Message (optional)</label>
           <textarea id="message" name="message" rows="3"></textarea>
         </div>
 
@@ -168,14 +170,12 @@
   </div>
 </section>
 
-<!-- GALLERY (MOVED UP) -->
+<!-- GALLERY -->
 <section class="section narrative" id="environment">
   <div class="container">
     <header class="section__head">
       <h2>The environment your property enters</h2>
-      <p>
-        A high-intent, professionally run auction environment — not a passive listing.
-      </p>
+      <p>A high-intent, professionally run auction environment — not a passive listing.</p>
     </header>
 
     <div class="narrative__grid">
@@ -232,7 +232,7 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS (FORMATTED LIKE "WHY" SECTION) -->
+<!-- HOW IT WORKS (formatted like WHY) -->
 <section class="section" id="how">
   <div class="container">
     <header class="section__head">
@@ -244,7 +244,7 @@
       <div class="benefit">
         <span class="icon icon--usercheck" aria-hidden="true"></span>
         <h3>Strategy & reserve</h3>
-        <p>We align on pricing strategy and set a clear sale plan.</p>
+        <p>We align on goals and reserve strategy with a clear sale plan.</p>
       </div>
 
       <div class="benefit">
@@ -268,7 +268,7 @@
   </div>
 </section>
 
-<!-- RECENTLY SOLD (MOVED UP AFTER "HOW") -->
+<!-- RECENTLY SOLD (MOVED UP) -->
 <section class="section section--alt" id="proof">
   <div class="container">
     <header class="section__head">
@@ -279,76 +279,58 @@
     <div class="proof">
       <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
 
-        <!-- Sold 1 -->
         <div class="proof__card">
           <div class="proof__img">
             <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 17.3 Million</div>
-          <div class="proof__meta">
-            <strong>Eldo Glen</strong> • Timeless Manor on ±11 647m²
-          </div>
+          <div class="proof__meta"><strong>Eldo Glen</strong> • Timeless Manor on ±11 647m²</div>
         </div>
 
-        <!-- Sold 2 -->
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 80 Million</div>
-          <div class="proof__meta">
-            <strong>Kimberley</strong> • Wholesale Fuel Depot
-          </div>
+          <div class="proof__meta"><strong>Kimberley</strong> • Wholesale Fuel Depot</div>
         </div>
 
-        <!-- Sold 3 -->
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Douglasdale 4-bedroom home sold" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Douglasdale home sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 2.5 Million</div>
-          <div class="proof__meta">
-            <strong>Douglasdale</strong> • Elegant 4-Bedroom Home
-          </div>
+          <div class="proof__meta"><strong>Douglasdale</strong> • Elegant 4-Bedroom Home</div>
         </div>
 
-        <!-- Sold 4 -->
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 24.25 Million</div>
-          <div class="proof__meta">
-            <strong>Kew, Johannesburg</strong> • 72 Fully Let Apartments
-          </div>
+          <div class="proof__meta"><strong>Kew, Johannesburg</strong> • 72 Fully Let Apartments</div>
         </div>
 
-        <!-- Sold 5 -->
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Margate mansionette sold" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Margate mansionette sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 1.5 Million</div>
-          <div class="proof__meta">
-            <strong>Margate</strong> • 3-Bedroom Mansionette
-          </div>
+          <div class="proof__meta"><strong>Margate</strong> • 3-Bedroom Mansionette</div>
         </div>
 
-        <!-- Sold 6 -->
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 9.3 Million</div>
-          <div class="proof__meta">
-            <strong>Linbro Park</strong> • High-Exposure Retail Park
-          </div>
+          <div class="proof__meta"><strong>Linbro Park</strong> • High-Exposure Retail Park</div>
         </div>
 
       </div>
@@ -398,7 +380,7 @@
   </div>
 </section>
 
-<!-- GOOGLE REVIEWS (REPLACES WHERE "RECENTLY SOLD" USED TO BE) -->
+<!-- GOOGLE REVIEWS -->
 <section class="section section--alt" id="reviews">
   <div class="container">
     <header class="section__head">
@@ -409,48 +391,36 @@
     <div class="proof">
       <div class="proof__track" id="reviewsTrack" aria-label="Google reviews">
 
-        <!-- Review 1 (replace image filenames with yours) -->
         <div class="proof__card">
           <div class="proof__img">
             <img src="{{ url_for('static', filename='assets/reviews/review-1.jpg') }}" alt="Google review screenshot 1" loading="lazy">
           </div>
           <div class="proof__kicker">Google Review</div>
-          <div class="proof__meta">
-            <strong>★★★★★</strong> • Verified seller feedback
-          </div>
+          <div class="proof__meta"><strong>★★★★★</strong> • Seller feedback</div>
         </div>
 
-        <!-- Review 2 -->
         <div class="proof__card">
           <div class="proof__img">
             <img src="{{ url_for('static', filename='assets/reviews/review-2.jpg') }}" alt="Google review screenshot 2" loading="lazy">
           </div>
           <div class="proof__kicker">Google Review</div>
-          <div class="proof__meta">
-            <strong>★★★★★</strong> • Verified seller feedback
-          </div>
+          <div class="proof__meta"><strong>★★★★★</strong> • Seller feedback</div>
         </div>
 
-        <!-- Review 3 -->
         <div class="proof__card">
           <div class="proof__img">
             <img src="{{ url_for('static', filename='assets/reviews/review-3.jpg') }}" alt="Google review screenshot 3" loading="lazy">
           </div>
           <div class="proof__kicker">Google Review</div>
-          <div class="proof__meta">
-            <strong>★★★★★</strong> • Verified seller feedback
-          </div>
+          <div class="proof__meta"><strong>★★★★★</strong> • Seller feedback</div>
         </div>
 
-        <!-- Review 4 -->
         <div class="proof__card">
           <div class="proof__img">
             <img src="{{ url_for('static', filename='assets/reviews/review-4.jpg') }}" alt="Google review screenshot 4" loading="lazy">
           </div>
           <div class="proof__kicker">Google Review</div>
-          <div class="proof__meta">
-            <strong>★★★★★</strong> • Verified seller feedback
-          </div>
+          <div class="proof__meta"><strong>★★★★★</strong> • Seller feedback</div>
         </div>
 
       </div>
@@ -473,7 +443,7 @@
 
 </main>
 
-<div class="sticky-cta">
+<div class="sticky-cta" role="region" aria-label="Sticky call to action">
   <a class="btn btn--primary btn--full" href="#lead">Get a call-back</a>
 </div>
 
@@ -489,7 +459,7 @@
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 
-<!-- Inline JS to control the Google Reviews slider arrows -->
+<!-- Reviews slider arrows (so you don't have to edit script.js) -->
 <script>
   (function () {
     const track = document.getElementById("reviewsTrack");
@@ -510,6 +480,7 @@
 
 </body>
 </html>
+
 
 
 
