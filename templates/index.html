@@ -11,6 +11,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+
+  <!-- Layout fixes (mobile-friendly hero + CTA bars + optional trust styling) -->
+  <style>
+    /* Hero: make the subheading behave like a real subhead */
+    .hero-subhead{
+      margin: -2px 0 10px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: clamp(18px, 2.2vw, 26px);
+      color: rgba(245, 248, 255, .92);
+      text-shadow: 0 0 24px rgba(255,46,84,.10);
+    }
+
+    /* Make accent underline less likely to clash when line wraps */
+    .accent{ padding-bottom: 2px; }
+    .accent::after{ bottom:-8px; }
+
+    /* Fix the CTA bars on mobile (the ones that look weird) */
+    @media (max-width: 640px){
+      .final-cta{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .final-cta .btn{
+        width: 100%;
+      }
+    }
+
+    /* Trust points: make them feel more premium (subtle red glow) */
+    .trust__item{
+      box-shadow: 0 0 0 1px rgba(255,46,84,.06) inset, 0 10px 26px rgba(0,0,0,.22);
+    }
+    .trust__item .icon{
+      border-color: rgba(255,46,84,.20);
+      background: rgba(255,46,84,.07);
+      box-shadow: 0 0 18px rgba(255,46,84,.10);
+    }
+
+    /* Optional: hide trust pills on very small screens if you prefer cleaner hero */
+    /* @media (max-width: 420px){ .trust{ display:none } } */
+  </style>
 </head>
 
 <body>
@@ -58,10 +100,11 @@
         Sell with speed. Powered by intelligence.
       </div>
 
-      <!-- UPDATED HERO HEADLINE + SUBHEAD + TRUST LINE -->
+      <!-- HERO: headline + real subheading -->
       <h1>
-        Sell your property <span class="accent">in 3 weeks</span> — with qualified buyers competing
+        Sell your property <span class="accent">in 3 weeks</span>
       </h1>
+      <p class="hero-subhead">with qualified buyers competing</p>
 
       <p class="lead">
         A structured, time-bound auction campaign for serious sellers who want certainty, not delays.
@@ -71,7 +114,7 @@
         Nationwide buyer database • Transparent regulated auctions • Proven results
       </p>
 
-      <div class="trust">
+      <div class="trust" aria-label="Key benefits">
         <div class="trust__item">
           <span class="icon icon--shield" aria-hidden="true"></span>
           Qualified bidders
@@ -115,7 +158,6 @@
     <!-- LEAD FORM -->
     <aside class="card card--glow" id="lead" aria-label="Lead form">
       <div class="card__head">
-        <!-- UPDATED FORM FRAMING -->
         <h2>Get your 3-week sale plan</h2>
         <p>Takes under 60 seconds • No obligation.</p>
       </div>
@@ -126,7 +168,6 @@
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
         </div>
 
-        <!-- REORDERED FIELDS: ADDRESS FIRST -->
         <div class="field">
           <label for="address">Property Address</label>
           <input id="address" name="address" autocomplete="street-address" required />
@@ -156,7 +197,6 @@
           <textarea id="message" name="message" rows="3"></textarea>
         </div>
 
-        <!-- UPDATED CTA -->
         <button class="btn btn--primary btn--full" type="submit" id="submitBtn">
           Get my 3-week sale plan →
         </button>
@@ -179,19 +219,17 @@
   </div>
 </section>
 
-<!-- NEW: SOLD / OUTCOMES SECTION UNDER HERO (GALLERY PLACEMENT UNCHANGED) -->
-<section class="section section--alt">
+<!-- NEW: SOLD / OUTCOMES SECTION UNDER HERO -->
+<section class="section section--alt" id="outcomes">
   <div class="container">
     <header class="section__head">
       <h2>Real auction outcomes</h2>
       <p>These are not listings. These are confirmed results achieved through structured auction campaigns.</p>
     </header>
 
-    <!-- Reuse existing proof slider styling -->
     <div class="proof">
       <div class="proof__track" aria-label="Auction outcomes highlights">
 
-        <!-- (Reusing 4 cards for punch; you can add more if you like) -->
         <div class="proof__card">
           <div class="proof__img">
             <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
@@ -241,7 +279,7 @@
   </div>
 </section>
 
-<!-- GALLERY (UNCHANGED PLACEMENT) -->
+<!-- GALLERY -->
 <section class="section narrative" id="environment">
   <div class="container">
     <header class="section__head">
@@ -303,7 +341,7 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS (UNCHANGED STRUCTURE) -->
+<!-- HOW IT WORKS -->
 <section class="section" id="how">
   <div class="container">
     <header class="section__head">
@@ -339,7 +377,7 @@
   </div>
 </section>
 
-<!-- RECENTLY SOLD (EXISTING SECTION KEPT) -->
+<!-- RECENTLY SOLD -->
 <section class="section section--alt" id="proof">
   <div class="container">
     <header class="section__head">
@@ -350,9 +388,10 @@
     <div class="proof">
       <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
 
+        <!-- You can swap these cards anytime: just keep the same structure -->
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 17.3 Million</div>
@@ -361,7 +400,7 @@
 
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley sold at auction" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 80 Million</div>
@@ -370,7 +409,7 @@
 
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Douglasdale home sold at auction" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 2.5 Million</div>
@@ -379,7 +418,7 @@
 
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold at auction" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 24.25 Million</div>
@@ -388,7 +427,7 @@
 
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Margate mansionette sold at auction" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 1.5 Million</div>
@@ -397,7 +436,7 @@
 
         <div class="proof__card">
           <div class="proof__img">
-            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold at auction" loading="lazy">
+            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Sold at auction" loading="lazy">
           </div>
           <div class="proof__kicker">Sold at auction</div>
           <div class="proof__price">R 9.3 Million</div>
@@ -451,7 +490,7 @@
   </div>
 </section>
 
-<!-- GOOGLE REVIEWS (PLACEMENT UNCHANGED) -->
+<!-- GOOGLE REVIEWS -->
 <section class="section section--alt" id="reviews">
   <div class="container">
     <header class="section__head">
