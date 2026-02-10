@@ -40,6 +40,57 @@
   if (proofPrev) proofPrev.addEventListener("click", () => scrollByCard(-1));
   if (proofNext) proofNext.addEventListener("click", () => scrollByCard(1));
 
+  // -----------------------------
+  // Source tracking (UTMs + referrer)
+  // - Does NOT change any UI or existing behavior
+  // - Captures UTMs from the URL
+  // - Stores UTMs in localStorage so attribution survives return visits
+  // -----------------------------
+  const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+
+  const getUtmFromUrl = () => {
+    const out = {};
+    const params = new URLSearchParams(window.location.search || "");
+    UTM_KEYS.forEach((k) => {
+      const v = (params.get(k) || "").trim();
+      if (v) out[k] = v;
+    });
+    return out;
+  };
+
+  const getStoredUtm = () => {
+    try {
+      const raw = localStorage.getItem("auctioninc_utms");
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  };
+
+  const storeUtm = (utms) => {
+    try {
+      localStorage.setItem("auctioninc_utms", JSON.stringify(utms || {}));
+    } catch {
+      // ignore storage errors (private mode etc.)
+    }
+  };
+
+  const buildAttribution = () => {
+    const fromUrl = getUtmFromUrl();
+    const stored = getStoredUtm();
+
+    // If UTMs exist in URL, refresh storage with the latest (best signal).
+    if (Object.keys(fromUrl).length) storeUtm(fromUrl);
+
+    const utms = Object.keys(fromUrl).length ? fromUrl : stored;
+
+    return {
+      ...utms,
+      referrer: document.referrer || "",
+      landing_url: window.location.href || "",
+    };
+  };
+
   // Lead form
   const form = document.getElementById("leadForm");
   const submitBtn = document.getElementById("submitBtn");
@@ -100,7 +151,9 @@
 
     if (!ok) return;
 
-    const payload = { name, phone, email, address, message };
+    const attribution = buildAttribution();
+
+    const payload = { name, phone, email, address, message, attribution };
 
     try {
       if (submitBtn) submitBtn.disabled = true;
@@ -130,4 +183,3 @@
     }
   });
 })();
-
