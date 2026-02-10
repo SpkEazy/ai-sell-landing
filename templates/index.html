@@ -58,13 +58,17 @@
         Sell with speed. Powered by intelligence.
       </div>
 
+      <!-- UPDATED HERO HEADLINE + SUBHEAD + TRUST LINE -->
       <h1>
-        Sell your property
-        <span class="accent">in 3 weeks</span>
+        Sell your property <span class="accent">in 3 weeks</span> — with qualified buyers competing
       </h1>
 
       <p class="lead">
-        A time-boxed auction campaign that attracts qualified buyers fast — backed by data, automation and AI-led marketing.
+        A structured, time-bound auction campaign for serious sellers who want certainty, not delays.
+      </p>
+
+      <p class="muted" style="margin-top:-6px;">
+        Nationwide buyer database • Transparent regulated auctions • Proven results
       </p>
 
       <div class="trust">
@@ -87,7 +91,9 @@
         <span class="micro__text">We’ll contact you within 1 business day.</span>
       </div>
 
-      <!-- VIDEO -->
+      <!-- VIDEO (PLACEMENT UNCHANGED) -->
+      <p class="muted" style="margin:14px 0 8px;">Watch how our auctions create urgency and real outcomes</p>
+
       <div class="video-card" aria-label="Auction highlight reel">
         <div class="video-card__head">
           <strong>Watch a live AuctionInc moment</strong>
@@ -109,14 +115,22 @@
     <!-- LEAD FORM -->
     <aside class="card card--glow" id="lead" aria-label="Lead form">
       <div class="card__head">
-        <h2>Fill in your details</h2>
-        <p>and we’ll be in touch.</p>
+        <!-- UPDATED FORM FRAMING -->
+        <h2>Get your 3-week sale plan</h2>
+        <p>Takes under 60 seconds • No obligation.</p>
       </div>
 
       <form id="leadForm" class="form" novalidate>
 
         <div class="hp" aria-hidden="true">
           <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- REORDERED FIELDS: ADDRESS FIRST -->
+        <div class="field">
+          <label for="address">Property Address</label>
+          <input id="address" name="address" autocomplete="street-address" required />
+          <small class="error" data-error-for="address"></small>
         </div>
 
         <div class="field">
@@ -126,30 +140,25 @@
         </div>
 
         <div class="field">
-          <label for="phone">Contact Number</label>
-          <input id="phone" name="phone" autocomplete="tel" required />
-          <small class="error" data-error-for="phone"></small>
-        </div>
-
-        <div class="field">
           <label for="email">Email</label>
           <input id="email" name="email" type="email" autocomplete="email" required />
           <small class="error" data-error-for="email"></small>
         </div>
 
         <div class="field">
-          <label for="address">Property Address</label>
-          <input id="address" name="address" autocomplete="street-address" required />
-          <small class="error" data-error-for="address"></small>
+          <label for="phone">Contact Number</label>
+          <input id="phone" name="phone" autocomplete="tel" required />
+          <small class="error" data-error-for="phone"></small>
         </div>
 
         <div class="field">
-          <label for="message">Message (optional)</label>
+          <label for="message">Anything we should know? (optional)</label>
           <textarea id="message" name="message" rows="3"></textarea>
         </div>
 
+        <!-- UPDATED CTA -->
         <button class="btn btn--primary btn--full" type="submit" id="submitBtn">
-          Send Enquiry →
+          Get my 3-week sale plan →
         </button>
 
         <p class="fineprint">
@@ -170,7 +179,69 @@
   </div>
 </section>
 
-<!-- GALLERY -->
+<!-- NEW: SOLD / OUTCOMES SECTION UNDER HERO (GALLERY PLACEMENT UNCHANGED) -->
+<section class="section section--alt">
+  <div class="container">
+    <header class="section__head">
+      <h2>Real auction outcomes</h2>
+      <p>These are not listings. These are confirmed results achieved through structured auction campaigns.</p>
+    </header>
+
+    <!-- Reuse existing proof slider styling -->
+    <div class="proof">
+      <div class="proof__track" aria-label="Auction outcomes highlights">
+
+        <!-- (Reusing 4 cards for punch; you can add more if you like) -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 17.3 Million</div>
+          <div class="proof__meta"><strong>Eldo Glen</strong> • Timeless Manor on ±11 647m²</div>
+        </div>
+
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley sold at auction" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 80 Million</div>
+          <div class="proof__meta"><strong>Kimberley</strong> • Wholesale Fuel Depot</div>
+        </div>
+
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold at auction" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 24.25 Million</div>
+          <div class="proof__meta"><strong>Kew, Johannesburg</strong> • 72 Fully Let Apartments</div>
+        </div>
+
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold at auction" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 9.3 Million</div>
+          <div class="proof__meta"><strong>Linbro Park</strong> • High-Exposure Retail Park</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="final-cta">
+      <div>
+        <h3>Want the 3-week plan for your property?</h3>
+        <p>Get a clear strategy, timeline, and next steps — we’ll contact you within 1 business day.</p>
+      </div>
+      <a class="btn btn--primary" href="#lead">Get my 3-week sale plan</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY (UNCHANGED PLACEMENT) -->
 <section class="section narrative" id="environment">
   <div class="container">
     <header class="section__head">
@@ -232,7 +303,7 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS (formatted like WHY) -->
+<!-- HOW IT WORKS (UNCHANGED STRUCTURE) -->
 <section class="section" id="how">
   <div class="container">
     <header class="section__head">
@@ -268,7 +339,7 @@
   </div>
 </section>
 
-<!-- RECENTLY SOLD (MOVED UP) -->
+<!-- RECENTLY SOLD (EXISTING SECTION KEPT) -->
 <section class="section section--alt" id="proof">
   <div class="container">
     <header class="section__head">
@@ -346,7 +417,7 @@
         <h3>These are not listings. These are outcomes.</h3>
         <p>See what a focused auction can achieve for your property.</p>
       </div>
-      <a class="btn btn--primary" href="#lead">Send enquiry</a>
+      <a class="btn btn--primary" href="#lead">Get my 3-week sale plan</a>
     </div>
   </div>
 </section>
@@ -380,7 +451,7 @@
   </div>
 </section>
 
-<!-- GOOGLE REVIEWS -->
+<!-- GOOGLE REVIEWS (PLACEMENT UNCHANGED) -->
 <section class="section section--alt" id="reviews">
   <div class="container">
     <header class="section__head">
@@ -436,7 +507,7 @@
         <h3>Want the 3-week plan for your property?</h3>
         <p>Submit your details and we’ll contact you within 1 business day.</p>
       </div>
-      <a class="btn btn--primary" href="#lead">Get a call-back</a>
+      <a class="btn btn--primary" href="#lead">Get my 3-week sale plan</a>
     </div>
   </div>
 </section>
@@ -444,7 +515,7 @@
 </main>
 
 <div class="sticky-cta" role="region" aria-label="Sticky call to action">
-  <a class="btn btn--primary btn--full" href="#lead">Get a call-back</a>
+  <a class="btn btn--primary btn--full" href="#lead">Get my 3-week sale plan</a>
 </div>
 
 <footer class="footer">
