@@ -27,8 +27,9 @@
     <nav class="nav" aria-label="Primary">
       <a href="#environment">The environment</a>
       <a href="#how">How it works</a>
-      <a href="#why">Why auction</a>
       <a href="#proof">Recently sold</a>
+      <a href="#why">Why auction</a>
+      <a href="#reviews">Google reviews</a>
     </nav>
 
     <a class="btn btn--ghost topbar__cta" href="#lead">Get a call-back</a>
@@ -38,8 +39,9 @@
   <div class="nav__mobile" id="navMobile" hidden>
     <a href="#environment">The environment</a>
     <a href="#how">How it works</a>
-    <a href="#why">Why auction</a>
     <a href="#proof">Recently sold</a>
+    <a href="#why">Why auction</a>
+    <a href="#reviews">Google reviews</a>
     <a class="btn btn--primary" href="#lead">Get a call-back</a>
   </div>
 </header>
@@ -166,7 +168,7 @@
   </div>
 </section>
 
-<!-- 🔥 GALLERY (MOVED UP) -->
+<!-- GALLERY (MOVED UP) -->
 <section class="section narrative" id="environment">
   <div class="container">
     <header class="section__head">
@@ -179,7 +181,7 @@
     <div class="narrative__grid">
 
       <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/auction_intro.jpg') }}">
+        <img src="{{ url_for('static', filename='assets/narrative/auction_intro.jpg') }}" alt="Auction atmosphere" loading="lazy">
         <figcaption>
           <h3>Auction day energy</h3>
           <p>Live, time-bound bidding.</p>
@@ -187,7 +189,7 @@
       </figure>
 
       <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/serious_sellers.jpg') }}">
+        <img src="{{ url_for('static', filename='assets/narrative/serious_sellers.jpg') }}" alt="Serious sellers" loading="lazy">
         <figcaption>
           <h3>Serious sellers</h3>
           <p>Clear intent and strategy.</p>
@@ -195,7 +197,7 @@
       </figure>
 
       <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/motivated_bidders.jpg') }}">
+        <img src="{{ url_for('static', filename='assets/narrative/motivated_bidders.jpg') }}" alt="Motivated bidders" loading="lazy">
         <figcaption>
           <h3>Motivated bidders</h3>
           <p>Urgency drives value.</p>
@@ -203,7 +205,7 @@
       </figure>
 
       <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/expert_brokers.jpg') }}">
+        <img src="{{ url_for('static', filename='assets/narrative/expert_brokers.jpg') }}" alt="Expert brokers" loading="lazy">
         <figcaption>
           <h3>Expert brokers</h3>
           <p>Guided from mandate to sale.</p>
@@ -211,7 +213,7 @@
       </figure>
 
       <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/industry_leaders.jpg') }}">
+        <img src="{{ url_for('static', filename='assets/narrative/industry_leaders.jpg') }}" alt="Decision makers" loading="lazy">
         <figcaption>
           <h3>Decision-makers present</h3>
           <p>Where deals happen.</p>
@@ -219,7 +221,7 @@
       </figure>
 
       <figure class="narrative__item">
-        <img src="{{ url_for('static', filename='assets/narrative/live_streaming.jpg') }}">
+        <img src="{{ url_for('static', filename='assets/narrative/live_streaming.jpg') }}" alt="Nationwide live participation" loading="lazy">
         <figcaption>
           <h3>Nationwide bidding</h3>
           <p>Live from anywhere.</p>
@@ -230,20 +232,140 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
+<!-- HOW IT WORKS (FORMATTED LIKE "WHY" SECTION) -->
 <section class="section" id="how">
   <div class="container">
     <header class="section__head">
       <h2>Selling your property on auction</h2>
+      <p>A structured, time-bound process designed for serious sellers.</p>
     </header>
 
-    <ol class="steps">
-      <li class="step"><span class="step__num">1</span><h3>Meet with a specialist</h3></li>
-      <li class="step"><span class="step__num">2</span><h3>Transparent mandate</h3></li>
-      <li class="step"><span class="step__num">3</span><h3>Auction date set</h3></li>
-      <li class="step"><span class="step__num">4</span><h3>21-day marketing push</h3></li>
-      <li class="step"><span class="step__num">5</span><h3>Sold on auction day</h3></li>
-    </ol>
+    <div class="benefits">
+      <div class="benefit">
+        <span class="icon icon--usercheck" aria-hidden="true"></span>
+        <h3>Strategy & reserve</h3>
+        <p>We align on pricing strategy and set a clear sale plan.</p>
+      </div>
+
+      <div class="benefit">
+        <span class="icon icon--clock" aria-hidden="true"></span>
+        <h3>21-day campaign</h3>
+        <p>A focused marketing window built for urgency and intent.</p>
+      </div>
+
+      <div class="benefit">
+        <span class="icon icon--db" aria-hidden="true"></span>
+        <h3>Qualified buyers</h3>
+        <p>Targeted outreach to buyers most likely to transact.</p>
+      </div>
+
+      <div class="benefit">
+        <span class="icon icon--tag" aria-hidden="true"></span>
+        <h3>Auction day outcome</h3>
+        <p>A fixed deadline that drives action and price discovery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENTLY SOLD (MOVED UP AFTER "HOW") -->
+<section class="section section--alt" id="proof">
+  <div class="container">
+    <header class="section__head">
+      <h2>Recently sold</h2>
+      <p>Real outcomes achieved through AuctionInc’s structured auction process.</p>
+    </header>
+
+    <div class="proof">
+      <div class="proof__track" id="proofTrack" aria-label="Sale highlights">
+
+        <!-- Sold 1 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-1.jpg') }}" alt="Eldo Glen manor sold at auction" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 17.3 Million</div>
+          <div class="proof__meta">
+            <strong>Eldo Glen</strong> • Timeless Manor on ±11 647m²
+          </div>
+        </div>
+
+        <!-- Sold 2 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-2.jpg') }}" alt="Wholesale fuel depot Kimberley" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 80 Million</div>
+          <div class="proof__meta">
+            <strong>Kimberley</strong> • Wholesale Fuel Depot
+          </div>
+        </div>
+
+        <!-- Sold 3 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-3.jpg') }}" alt="Douglasdale 4-bedroom home sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 2.5 Million</div>
+          <div class="proof__meta">
+            <strong>Douglasdale</strong> • Elegant 4-Bedroom Home
+          </div>
+        </div>
+
+        <!-- Sold 4 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-4.jpg') }}" alt="Kew apartment block sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 24.25 Million</div>
+          <div class="proof__meta">
+            <strong>Kew, Johannesburg</strong> • 72 Fully Let Apartments
+          </div>
+        </div>
+
+        <!-- Sold 5 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-5.jpg') }}" alt="Margate mansionette sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 1.5 Million</div>
+          <div class="proof__meta">
+            <strong>Margate</strong> • 3-Bedroom Mansionette
+          </div>
+        </div>
+
+        <!-- Sold 6 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/sold/sold-6.jpg') }}" alt="Linbro Park retail park sold" loading="lazy">
+          </div>
+          <div class="proof__kicker">Sold at auction</div>
+          <div class="proof__price">R 9.3 Million</div>
+          <div class="proof__meta">
+            <strong>Linbro Park</strong> • High-Exposure Retail Park
+          </div>
+        </div>
+
+      </div>
+
+      <div class="proof__controls">
+        <button class="btn btn--ghost" id="proofPrev" type="button" aria-label="Previous">←</button>
+        <button class="btn btn--ghost" id="proofNext" type="button" aria-label="Next">→</button>
+      </div>
+    </div>
+
+    <div class="final-cta">
+      <div>
+        <h3>These are not listings. These are outcomes.</h3>
+        <p>See what a focused auction can achieve for your property.</p>
+      </div>
+      <a class="btn btn--primary" href="#lead">Send enquiry</a>
+    </div>
   </div>
 </section>
 
@@ -256,39 +378,95 @@
     </header>
 
     <div class="benefits">
-      <div class="benefit"><h3>Defined timeline</h3><p>Clear sale date.</p></div>
-      <div class="benefit"><h3>Qualified bidders</h3><p>Structured bidding.</p></div>
-      <div class="benefit"><h3>Fewer delays</h3><p>No drawn-out negotiations.</p></div>
-      <div class="benefit"><h3>Transparent fees</h3><p>No surprises.</p></div>
+      <div class="benefit">
+        <h3>Defined timeline</h3>
+        <p>Clear sale date.</p>
+      </div>
+      <div class="benefit">
+        <h3>Qualified bidders</h3>
+        <p>Structured bidding.</p>
+      </div>
+      <div class="benefit">
+        <h3>Fewer delays</h3>
+        <p>No drawn-out negotiations.</p>
+      </div>
+      <div class="benefit">
+        <h3>Transparent fees</h3>
+        <p>No surprises.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- RECENTLY SOLD -->
-<section class="section section--alt" id="proof">
+<!-- GOOGLE REVIEWS (REPLACES WHERE "RECENTLY SOLD" USED TO BE) -->
+<section class="section section--alt" id="reviews">
   <div class="container">
     <header class="section__head">
-      <h2>Recently sold</h2>
-      <p>These are outcomes — not listings.</p>
+      <h2>Google reviews</h2>
+      <p>What sellers say after the campaign.</p>
     </header>
 
-    <!-- SOLD SLIDER UNCHANGED -->
     <div class="proof">
-      <div class="proof__track" id="proofTrack">
-        <!-- sold cards exactly as before -->
+      <div class="proof__track" id="reviewsTrack" aria-label="Google reviews">
+
+        <!-- Review 1 (replace image filenames with yours) -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/reviews/review-1.jpg') }}" alt="Google review screenshot 1" loading="lazy">
+          </div>
+          <div class="proof__kicker">Google Review</div>
+          <div class="proof__meta">
+            <strong>★★★★★</strong> • Verified seller feedback
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/reviews/review-2.jpg') }}" alt="Google review screenshot 2" loading="lazy">
+          </div>
+          <div class="proof__kicker">Google Review</div>
+          <div class="proof__meta">
+            <strong>★★★★★</strong> • Verified seller feedback
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/reviews/review-3.jpg') }}" alt="Google review screenshot 3" loading="lazy">
+          </div>
+          <div class="proof__kicker">Google Review</div>
+          <div class="proof__meta">
+            <strong>★★★★★</strong> • Verified seller feedback
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="proof__card">
+          <div class="proof__img">
+            <img src="{{ url_for('static', filename='assets/reviews/review-4.jpg') }}" alt="Google review screenshot 4" loading="lazy">
+          </div>
+          <div class="proof__kicker">Google Review</div>
+          <div class="proof__meta">
+            <strong>★★★★★</strong> • Verified seller feedback
+          </div>
+        </div>
+
       </div>
+
       <div class="proof__controls">
-        <button class="btn btn--ghost" id="proofPrev">←</button>
-        <button class="btn btn--ghost" id="proofNext">→</button>
+        <button class="btn btn--ghost" id="reviewsPrev" type="button" aria-label="Previous reviews">←</button>
+        <button class="btn btn--ghost" id="reviewsNext" type="button" aria-label="Next reviews">→</button>
       </div>
     </div>
 
     <div class="final-cta">
       <div>
-        <h3>Ready to sell?</h3>
-        <p>See what a focused auction can achieve.</p>
+        <h3>Want the 3-week plan for your property?</h3>
+        <p>Submit your details and we’ll contact you within 1 business day.</p>
       </div>
-      <a class="btn btn--primary" href="#lead">Send enquiry</a>
+      <a class="btn btn--primary" href="#lead">Get a call-back</a>
     </div>
   </div>
 </section>
@@ -310,8 +488,29 @@
 </footer>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<!-- Inline JS to control the Google Reviews slider arrows -->
+<script>
+  (function () {
+    const track = document.getElementById("reviewsTrack");
+    const prev = document.getElementById("reviewsPrev");
+    const next = document.getElementById("reviewsNext");
+
+    const scrollByCard = (dir) => {
+      if (!track) return;
+      const card = track.querySelector(".proof__card");
+      const w = card ? card.getBoundingClientRect().width : 320;
+      track.scrollBy({ left: dir * (w + 12), behavior: "smooth" });
+    };
+
+    if (prev) prev.addEventListener("click", () => scrollByCard(-1));
+    if (next) next.addEventListener("click", () => scrollByCard(1));
+  })();
+</script>
+
 </body>
 </html>
+
 
 
 
