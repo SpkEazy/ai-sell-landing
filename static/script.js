@@ -42,9 +42,6 @@
 
   // -----------------------------
   // Source tracking (UTMs + referrer)
-  // - Does NOT change any UI or existing behavior
-  // - Captures UTMs from the URL
-  // - Stores UTMs in localStorage so attribution survives return visits
   // -----------------------------
   const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 
@@ -70,16 +67,13 @@
   const storeUtm = (utms) => {
     try {
       localStorage.setItem("auctioninc_utms", JSON.stringify(utms || {}));
-    } catch {
-      // ignore storage errors (private mode etc.)
-    }
+    } catch {}
   };
 
   const buildAttribution = () => {
     const fromUrl = getUtmFromUrl();
     const stored = getStoredUtm();
 
-    // If UTMs exist in URL, refresh storage with the latest (best signal).
     if (Object.keys(fromUrl).length) storeUtm(fromUrl);
 
     const utms = Object.keys(fromUrl).length ? fromUrl : stored;
@@ -113,11 +107,7 @@
 
   const showFail = (msg) => {
     if (successEl) successEl.hidden = true;
-    if (failEl) {
-      failEl.hidden = false;
-      // Optional: if you want message text inside fail box, keep it simple:
-      // (Your existing markup doesn’t include a span, so we leave it as-is.)
-    }
+    if (failEl) failEl.hidden = false;
     console.error(msg || "Lead submit failed");
   };
 
@@ -132,7 +122,6 @@
     if (successEl) successEl.hidden = true;
     if (failEl) failEl.hidden = true;
 
-    // IMPORTANT: Clear honeypot in case browser autofilled it (prevents false "Spam detected")
     const hp = document.getElementById("website");
     if (hp) hp.value = "";
 
@@ -152,7 +141,6 @@
     if (!ok) return;
 
     const attribution = buildAttribution();
-
     const payload = { name, phone, email, address, message, attribution };
 
     try {
@@ -167,15 +155,20 @@
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        // Surface server error to console for debugging
         console.error("API error:", res.status, data);
         showFail(data?.error || "Request failed");
         return;
       }
 
+      // ✅ GA4 conversion event (fires only on successful lead)
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "sell_your_property_for");
+      }
+
       // success
       form.reset();
       showSuccess();
+
     } catch (err) {
       showFail(err?.message || String(err));
     } finally {
@@ -183,3 +176,4 @@
     }
   });
 })();
+
